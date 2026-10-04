@@ -107,7 +107,7 @@ export const forms = {
       { name: 'phone', label: 'Phone or WhatsApp', type: 'tel', required: true, autoComplete: 'tel' },
       { name: 'email', label: 'Email', type: 'email', required: true, autoComplete: 'email' },
     ],
-    submit: 'Supply with Procuro',
+    submit: 'Apply to supply',
     confirmation: "Thank you. We'll review your details and get in touch.",
   },
   general: {

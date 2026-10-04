@@ -22,15 +22,15 @@ const { headline, line, variant = 'split', image = 'Material photograph', animat
 
 {
   variant === 'band' && (
-    <section data-theme="dark" class="relative flex min-h-[640px] items-end bg-paper lg:min-h-[min(92vh,900px)]">
+    <section data-theme="dark" class="relative flex min-h-[640px] items-end bg-paper pt-36 lg:min-h-[min(100vh,960px)]">
       <div class="absolute inset-0">
         <slot name="image">
-          <ImagePlaceholder label={image} class="!bg-concrete" />
+          <ImagePlaceholder label={image} class="!items-start pt-24 lg:justify-end lg:pt-28" />
         </slot>
       </div>
       <div class="container-site relative pb-6 lg:pb-16">
-        <div class="max-w-[860px] bg-paper p-6 pt-8 text-ink sm:p-10 lg:p-14">
-          <Headline text={headline} as="h1" size="hero" stopClass={animateStop ? 'hero-stop' : undefined} />
+        <div class="max-w-[1040px] bg-paper p-6 pt-8 text-ink sm:p-10 lg:p-14">
+          <Headline text={headline} as="h1" size="hero" breakSentences stopClass={animateStop ? 'hero-stop' : undefined} />
           <div class="mt-8 flex flex-col items-start gap-6 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
             {line && <p class="measure text-ink-muted lg:max-w-[40ch]">{line}</p>}
             <div class="flex shrink-0 flex-wrap gap-3">

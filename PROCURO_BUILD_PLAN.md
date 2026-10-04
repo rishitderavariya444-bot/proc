@@ -45,8 +45,8 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 
 **Done when:** every component appears on `/styleguide`.
 
-## Stage 3 — Home `/`
-- [ ] All 11 sections from the concise copy doc
+## Stage 3 — Home `/` ✅
+- [x] All 11 sections from the concise copy doc
 
 **Done when:** the page reads top to bottom with every link resolving (stub pages are fine).
 
@@ -101,3 +101,4 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 | 2026-10-04 | 0 | Astro 7 + React, Tailwind 4, Base UI, Vercel adapter, sitemap, Archivo variable (wdth) installed. Logo SVGs traced from the PNGs with potrace into `src/assets/`. Placeholder home page shows logo and font. |
 | 2026-10-04 | 1 | Tokens (neutrals, four accents per theme, type scale, grid, spacing) in `src/styles/global.css`. Base layout with light/dark section themes, Header (Base UI navigation menu + full-screen dialog menu below 1280px), Footer, Button, WhatsApp button, Logo with accent full stop and lockups. `/styleguide` (noindex, out of sitemap) checked at 375px and 1440px. Build and Stone accent text on concrete measure 4.4:1, so use ink there for small text. |
 | 2026-10-04 | 2 | Headline, Hero (band, split, text), SectionHeader, ProofBar, Card, CtaBand, SpecTag, SpecTable, Gallery + lightbox, FAQ (accordion + FAQPage JSON-LD), CaseStudyCard, QuoteBlock, LogoStrip, ImagePlaceholder and EnquiryForm (all six forms defined in `src/data/forms.ts`, UI only) are on `/styleguide`. Clicked through FAQ, form validation, select, lightbox and keyboard arrows at 375px and 1440px. Note for Stage 3: Unsplash and Pexels are blocked from the build container, so photos need another route in. |
+| 2026-10-04 | 3 | Home page with all 11 sections. Proof figures shown as supplied but still awaiting sign-off; client quote, logos and registration numbers are visible `[TO CONFIRM]` placeholders; photos are labelled placeholders. Holding pages for every other route (`src/data/stubs.ts`, noindex) so all links resolve; remove each entry when its real page is built. Link check: 0 broken. Checked at 360px, 820px and 1440px. |

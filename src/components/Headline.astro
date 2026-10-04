@@ -11,10 +11,12 @@ interface Props {
   class?: string;
   /** Extra classes on the full stop (e.g. the home hero fade). */
   stopClass?: string;
+  /** Start each sentence on its own line. */
+  breakSentences?: boolean;
   id?: string;
 }
 
-const { text, as = 'h2', size, stop = 'accent', class: className, stopClass, id } = Astro.props;
+const { text, as = 'h2', size, stop = 'accent', class: className, stopClass, breakSentences = false, id } = Astro.props;
 const Tag = as;
 const sizeClass = `t-${size ?? (as === 'p' ? 'h2' : as)}`;
 
@@ -22,8 +24,9 @@ const sizeClass = `t-${size ?? (as === 'p' ? 'h2' : as)}`;
 const trimmed = text.trimEnd();
 const hasStop = trimmed.endsWith('.');
 const body = hasStop ? trimmed.slice(0, -1) : trimmed;
+const lines = breakSentences ? body.split(/(?<=\.)\s+/) : [body];
 ---
 
 <Tag id={id} class:list={[sizeClass, 'text-balance', className]}>
-  {body}{hasStop && <span class:list={[stop === 'accent' ? 'text-accent' : 'text-ink', stopClass]}>.</span>}
+  {lines.map((line, i) => (i < lines.length - 1 ? <span class="block">{line}</span> : line))}{hasStop && <span class:list={[stop === 'accent' ? 'text-accent' : 'text-ink', stopClass]}>.</span>}
 </Tag>

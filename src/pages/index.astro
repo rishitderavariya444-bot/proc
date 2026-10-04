@@ -1,13 +1,295 @@
 ---
 import Base from '../layouts/Base.astro';
 import Section from '../components/Section.astro';
+import Hero from '../components/Hero.astro';
+import Headline from '../components/Headline.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import Button from '../components/Button.astro';
+import ProofBar from '../components/ProofBar.astro';
+import Card from '../components/Card.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { site } from '../data/site';
+
+// Copy: docs/content/concise-copy.md (Home), with card lines from the
+// "ways" section of docs/content/procuro-website-content.md.
+
+// [TO CONFIRM] in docs/OPEN_ITEMS.md: these figures await client sign-off.
+const proof = [
+  { figure: '2023', label: 'Supplying since' },
+  { figure: '20+', label: 'Clients' },
+  { figure: '30+', label: 'Real estate projects' },
+  { figure: '1,50,000+', label: 'Sq ft of flooring and stone' },
+];
+
+const valueProps = ['Verified supply', 'Fair, clear pricing', 'Delivered on schedule', 'One accountable partner'];
+
+const products = [
+  {
+    title: 'Build',
+    vertical: 'build',
+    href: '/build',
+    image: 'AAC block stacks on a live site',
+    lead: 'On spec. On site. On time.',
+    text: 'Construction materials for developers and contractors, with a quality report on every delivery.',
+  },
+  {
+    title: 'Minerals',
+    vertical: 'minerals',
+    href: '/minerals',
+    image: 'Talc powder, close up',
+    lead: 'Graded to the mesh.',
+    text: 'Talc powder and quicklime for manufacturers, with a certificate of analysis on every lot.',
+  },
+  {
+    title: 'Stone',
+    vertical: 'stone',
+    href: '/stone',
+    image: 'A stone slab under raking light',
+    lead: 'Chosen slab by slab.',
+    text: 'Natural stone selected for your project and sampled before you commit.',
+  },
+] as const;
+
+const services = [
+  {
+    title: 'Procuro Source',
+    vertical: 'source',
+    href: '/source',
+    text: 'We find, verify and manage suppliers. You decide.',
+  },
+  {
+    title: 'Quality control',
+    href: '/services/quality-control',
+    text: 'Every supplier and every order, inspected to spec.',
+  },
+  {
+    title: 'Logistics and export',
+    href: '/services/logistics',
+    text: 'Delivery across India and export to your port.',
+  },
+] as const;
+
+const industries = [
+  {
+    title: 'Real estate and construction',
+    href: '/industries/real-estate-construction',
+    text: 'Materials on spec and on schedule, for every phase.',
+  },
+  {
+    title: 'Paints, coatings and manufacturing',
+    href: '/industries/paints-coatings-manufacturing',
+    text: 'Graded minerals your formulation can count on.',
+  },
+  {
+    title: 'Architects and designers',
+    href: '/industries/architects-designers',
+    text: 'Natural and engineered surfaces, specified with you.',
+  },
+  {
+    title: 'International buyers',
+    href: '/industries/international-buyers',
+    text: 'We map, verify and manage suppliers for you.',
+  },
+];
+
+// [TO CONFIRM] in docs/OPEN_ITEMS.md: registration numbers.
+const registrations = ['GST', 'IEC', 'CIN', 'Udyam'];
 ---
 
-<Base title="Procuro India">
+<Base
+  title="Procuro India · Procurement and supply for builders and manufacturers"
+  description="Construction materials, industrial minerals and stone, plus managed procurement through Procuro Source. Offices in Mumbai and Jaipur."
+  headerOverlay
+>
+  <!-- 1. Hero -->
+  <Hero
+    variant="band"
+    headline="Right material. Right price. Right partner."
+    line="Materials, minerals and sourcing from India, from one verified partner."
+    image="Wide shot of the stone yard, slabs in rows"
+    animateStop
+  >
+    <Button href="/contact">Get a quote</Button>
+  </Hero>
+
+  <!-- 2. Two doors -->
   <Section>
     <div class="container-site">
-      <h1 class="t-hero max-w-[12ch]">Right material. Right price. Right partner<span class="text-accent">.</span></h1>
-      <p class="measure mt-8 text-ink-muted">The full home page arrives in Stage 3.</p>
+      <SectionHeader
+        layout="split"
+        headline="Two ways to work with us."
+        line="Buy from our supply, or let Procuro Source find it for you."
+      />
+      <div class="grid gap-6 md:grid-cols-2">
+        <article class="flex flex-col gap-6 bg-concrete p-6 lg:p-10">
+          <Headline text="Buy from our supply." as="h3" size="h2" stop="ink" />
+          <ImagePlaceholder label="Stock in the yard: blocks, slabs and bagged minerals" ratio="3 / 2" class="!bg-paper" />
+          <ul class="t-h3 flex flex-col gap-1">
+            <li data-vertical="build">Build<span class="text-accent">.</span></li>
+            <li data-vertical="minerals">Minerals<span class="text-accent">.</span></li>
+            <li data-vertical="stone">Stone<span class="text-accent">.</span></li>
+          </ul>
+          <div class="mt-auto pt-2">
+            <Button href="/products">Browse products</Button>
+          </div>
+        </article>
+        <article data-vertical="source" class="flex flex-col gap-6 bg-concrete p-6 lg:p-10">
+          <Headline text="Source from India." as="h3" size="h2" />
+          <ImagePlaceholder label="Inspection at a supplier's plant" ratio="3 / 2" class="!bg-paper" />
+          <p class="t-h3">Procuro Source<span class="text-accent">.</span></p>
+          <p class="measure -mt-3 text-ink-muted">
+            Whether you're buying in India or from India, we find, verify and manage the right suppliers for you.
+          </p>
+          <div class="mt-auto pt-2">
+            <Button href="/source" variant="accent">Explore Source</Button>
+          </div>
+        </article>
+      </div>
     </div>
   </Section>
+
+  <!-- 3. Proof bar -->
+  <Section surface="dark" class="!py-18 lg:!py-24">
+    <div class="container-site">
+      <h2 class="sr-only">Procuro in numbers</h2>
+      <ProofBar items={proof} />
+    </div>
+  </Section>
+
+  <!-- 4. Value props -->
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="Why buyers stay." class="col-span-12 lg:col-span-5" />
+      <ul class="col-span-12 grid gap-x-6 sm:grid-cols-2 lg:col-span-7">
+        {
+          valueProps.map((prop) => (
+            <li class="border-t border-line py-6">
+              <p class="t-h3">{prop}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- 5. Client quote, 6. Client logos -->
+  <Section surface="concrete">
+    <div class="container-site flex flex-col gap-18 lg:gap-28">
+      <QuoteBlock
+        quote="[TO CONFIRM: one client quote]"
+        name="[TO CONFIRM: client name]"
+        role="[TO CONFIRM: role and company]"
+      />
+      <div>
+        <Headline text="Trusted on site." class="mb-10" />
+        <LogoStrip logos={Array.from({ length: 6 }, () => ({ name: '[TO CONFIRM: client logo, with permission]' }))} />
+      </div>
+    </div>
+  </Section>
+
+  <!-- 7. Products -->
+  <Section>
+    <div class="container-site">
+      <SectionHeader
+        headline="What we supply."
+        line="Build, Minerals and Stone, each checked before dispatch."
+        action={{ label: 'See all products', href: '/products' }}
+      />
+      <div class="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-3">
+        {
+          products.map((p) => (
+            <Card
+              title={p.title}
+              vertical={p.vertical}
+              href={p.href}
+              image={p.image}
+              linkLabel={`Explore ${p.title}`}
+            >
+              <p class="font-semibold">{p.lead}</p>
+              <p class="t-small measure text-ink-muted">{p.text}</p>
+            </Card>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- 8. Services -->
+  <Section surface="dark">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-5">
+        <Headline text="How we deliver." />
+        <Button href="/services" variant="secondary">See services</Button>
+      </div>
+      <ul class="col-span-12 lg:col-span-7">
+        {
+          services.map((s) => (
+            <li data-vertical={'vertical' in s ? s.vertical : undefined} class="border-t border-line last:border-b">
+              <a href={s.href} class="group flex flex-col gap-2 py-7 text-ink no-underline sm:flex-row sm:items-baseline sm:gap-8">
+                <span class="t-h3 decoration-2 underline-offset-4 group-hover:underline sm:w-[45%] sm:shrink-0">
+                  {s.title}
+                  {'vertical' in s && <span class="text-accent">.</span>}
+                </span>
+                <span class="t-small text-ink-muted">{s.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- 9. Industries -->
+  <Section>
+    <div class="container-site">
+      <SectionHeader
+        layout="split"
+        headline="Who we work with."
+        line="Developers, manufacturers, designers and international buyers."
+        action={{ label: 'Find your industry', href: '/industries' }}
+      />
+      <ul class="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {
+          industries.map((i) => (
+            <li class="bg-paper">
+              <a href={i.href} class="group flex h-full flex-col gap-3 p-6 text-ink no-underline">
+                <span class="t-h3 decoration-2 underline-offset-4 group-hover:underline">{i.title}</span>
+                <span class="t-small text-ink-muted">{i.text}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- 10. Certifications -->
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-5 lg:col-span-5">
+        <Headline text="Registered and accountable." />
+        <p class="measure text-ink-muted">{site.legalLine}</p>
+      </div>
+      <dl class="col-span-12 grid gap-x-6 sm:grid-cols-2 lg:col-span-7">
+        {
+          registrations.map((r) => (
+            <div class="border-t border-line-strong py-5">
+              <dt class="t-small font-semibold">{r}</dt>
+              <dd class="t-spec mt-1 text-ink-muted">[TO CONFIRM: {r} number]</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <!-- 11. Closing CTA -->
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+    <WhatsAppButton mode="inline" />
+  </CtaBand>
 </Base>
