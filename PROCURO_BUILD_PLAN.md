@@ -63,8 +63,8 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 - [x] `/source` (Procuro Source)
 - [x] `/services/quality-control`, `/services/logistics`
 
-## Stage 6 — Industries
-- [ ] `/industries` index + 4 industry pages
+## Stage 6 — Industries ✅
+- [x] `/industries` index + 4 industry pages
 
 ## Stage 7 — Why Procuro, Company, Suppliers
 - [ ] `/why-procuro` (incl. case studies section)
@@ -104,3 +104,4 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 | 2026-10-04 | 3 | Home page with all 11 sections. Proof figures shown as supplied but still awaiting sign-off; client quote, logos and registration numbers are visible `[TO CONFIRM]` placeholders; photos are labelled placeholders. Holding pages for every other route (`src/data/stubs.ts`, noindex) so all links resolve; remove each entry when its real page is built. Link check: 0 broken. Checked at 360px, 820px and 1440px. |
 | 2026-10-04 | 4 | Data in `src/data/build.ts`, `minerals.ts`, `stone.ts`. `/products`, `/build`, `/minerals`, `/stone`, plus generated pages: 15 Build materials, 3 talc grades and 2 quicklime forms (powder, lump), 6 stone families and 73 stones (121 pages in all). Shared `ProductPage` layout with breadcrumbs (BreadcrumbList JSON-LD) and a per-product WhatsApp message. Talc tier labels omitted pending the PREMIUM decision; stone origins hidden until confirmed. Link and anchor check: 0 broken. Checked at 360px and 1440px. |
 | 2026-10-04 | 5 | `/services`, `/source` (what we do, two ways in, six-step process, engagement models, proof, FAQ, brief form), `/services/quality-control` (vetting, inspections, what you receive, spec tag explainer, checks by vertical) and `/services/logistics`. Engagement-model pricing, export terms and a sample report are `[TO CONFIRM]`. Hero headline minimum lowered from 48px to 40px, and split-hero headlines capped at 88px, so long words like "procurement" fit at 360px and beside the photo. Link check: 0 broken. |
+| 2026-10-04 | 6 | `/industries` and four industry pages generated from `src/data/industries.ts`: hero, what we supply (reusing Build, Minerals, Stone and Source copy), who it's for, a `[TO CONFIRM]` case study, other industries, CTA. Each page takes the accent of its main vertical. Link check: 0 broken. Checked at 360px and 1440px. |

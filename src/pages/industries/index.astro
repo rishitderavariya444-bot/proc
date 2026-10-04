@@ -1,0 +1,53 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Button from '../../components/Button.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { industries } from '../../data/industries';
+---
+
+<Base
+  title="Industries · Procuro India"
+  description="Procuro India works with developers and contractors, paint and coatings manufacturers, architects and designers, and international buyers sourcing from India."
+>
+  <Hero variant="text" headline="Who we work with." line="Developers, manufacturers, designers and international buyers." />
+
+  <Section surface="concrete">
+    <div class="container-site grid grid-cols-1 gap-6 md:grid-cols-2">
+      {
+        industries.map((i) => (
+          <a
+            href={`/industries/${i.slug}`}
+            data-vertical={i.vertical}
+            class="group flex flex-col gap-6 rounded-tag bg-paper p-6 text-ink no-underline lg:p-8"
+            data-theme="light"
+          >
+            <ImagePlaceholder label={i.image} ratio="16 / 9" />
+            <div class="flex flex-col gap-3">
+              <h2 class="t-h3">{i.name}</h2>
+              <p class="t-h2 decoration-2 underline-offset-4 group-hover:underline">
+                {i.headline.replace(/\.$/, '')}
+                <span class="text-accent">.</span>
+              </p>
+              <p class="measure text-ink-muted">{i.line}</p>
+              <ul class="t-small mt-2 flex flex-wrap gap-x-5 gap-y-1">
+                {i.links.map((l) => (
+                  <li data-vertical={l.vertical} class="font-semibold">
+                    {l.label}
+                    <span class="text-accent">.</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+  </CtaBand>
+</Base>

@@ -1,0 +1,126 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import CaseStudyCard from '../../components/CaseStudyCard.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { industries, type Industry } from '../../data/industries';
+
+export function getStaticPaths() {
+  return industries.map((industry) => ({ params: { industry: industry.slug }, props: { industry } }));
+}
+
+const { industry } = Astro.props as { industry: Industry };
+const others = industries.filter((i) => i !== industry);
+---
+
+<Base
+  title={`${industry.name} · Procuro India`}
+  description={`${industry.line} Procuro India for ${industry.name.toLowerCase()}.`}
+  vertical={industry.vertical}
+  whatsappMessage={industry.whatsappMessage}
+>
+  <Breadcrumbs items={[{ label: 'Industries', href: '/industries' }]} current={industry.name} />
+
+  <Hero variant="split" headline={industry.headline} line={industry.line} image={industry.image}>
+    <Button href={industry.cta.href} variant="accent">{industry.cta.label}</Button>
+    <WhatsAppButton mode="inline" message={industry.whatsappMessage} />
+  </Hero>
+
+  <!-- What we supply them -->
+  <Section surface="concrete">
+    <div class="container-site">
+      <Headline text="What we supply." class="mb-12 lg:mb-16" />
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          industry.supply.map((item) => (
+            <a
+              href={item.href}
+              data-theme="light"
+              class="group flex flex-col gap-3 rounded-tag bg-paper p-6 text-ink no-underline lg:p-8"
+            >
+              <h3 class="t-h3 decoration-2 underline-offset-4 group-hover:underline">
+                {item.title}
+                <span class="text-accent">.</span>
+              </h3>
+              <p class="t-small measure text-ink-muted">{item.text}</p>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Who it's for -->
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-5">
+        <Headline text="Who it's for." />
+        {industry.note && <p class="measure text-ink-muted">{industry.note}</p>}
+        <ul class="flex flex-wrap gap-x-6 gap-y-2">
+          {
+            industry.links.map((l) => (
+              <li>
+                <a href={l.href} class="t-small font-semibold text-accent-text underline underline-offset-4">
+                  Go to {l.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+      <dl class:list={['col-span-12 grid gap-x-6 gap-y-8 lg:col-span-7', industry.audiences.length > 1 && 'sm:grid-cols-2']}>
+        {
+          industry.audiences.map((a) => (
+            <div class="border-t border-line-strong pt-5">
+              <dt class="t-h3">{a.title}</dt>
+              <dd class="t-small mt-2 text-ink-muted">{a.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <!-- Case study (placeholder) -->
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="Work we can show." class="col-span-12 lg:col-span-5" />
+      <div class="col-span-12 lg:col-span-7">
+        <CaseStudyCard
+          vertical={industry.vertical}
+          context={`[TO CONFIRM: ${industry.name.toLowerCase()} client, city or country]`}
+          title="[TO CONFIRM: case study title]"
+          problem="[TO CONFIRM: what the client needed]"
+          action="[TO CONFIRM: what Procuro supplied or arranged]"
+          result="[TO CONFIRM: the result]"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Other industries -->
+  <Section>
+    <div class="container-site">
+      <h2 class="t-h3 mb-6">Other industries</h2>
+      <ul class="grid gap-x-6 sm:grid-cols-3">
+        {
+          others.map((o) => (
+            <li class="border-t border-line">
+              <a href={`/industries/${o.slug}`} class="block py-4 text-ink no-underline hover:underline underline-offset-4">{o.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href={industry.cta.href}>{industry.cta.label}</Button>
+    <WhatsAppButton mode="inline" message={industry.whatsappMessage} />
+  </CtaBand>
+</Base>

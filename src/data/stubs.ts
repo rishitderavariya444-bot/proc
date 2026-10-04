@@ -14,11 +14,6 @@ export interface Stub {
 }
 
 export const stubs: Stub[] = [
-  { path: 'industries', title: 'Industries', headline: 'Who we work with.', line: 'Developers, manufacturers, designers and international buyers.', stage: 6 },
-  { path: 'industries/real-estate-construction', title: 'Real estate and construction', headline: 'Built for site teams.', line: 'Materials on spec and on schedule, for every phase.', stage: 6 },
-  { path: 'industries/paints-coatings-manufacturing', title: 'Paints, coatings and manufacturing', headline: 'Consistent input. Consistent output.', line: 'Graded minerals your formulation can count on.', stage: 6 },
-  { path: 'industries/architects-designers', title: 'Architects and designers', headline: 'For people who choose stone with care.', line: 'Natural and engineered surfaces, specified with you.', stage: 6 },
-  { path: 'industries/international-buyers', title: 'International buyers', headline: 'Sourcing from India, handled.', line: 'We map, verify and manage suppliers for you.', stage: 6 },
   { path: 'why-procuro', title: 'Why Procuro', headline: 'India has no shortage of supply.', line: 'What buyers lack is a clear view of it. Procuro gives you that view.', stage: 7 },
   { path: 'company', title: 'About Procuro', headline: 'A clearer view of Indian supply.', line: 'Procurement and supply from Mumbai and Jaipur since 2023.', stage: 7 },
   { path: 'company/certifications', title: 'Certifications', headline: 'Registered and accountable.', stage: 7 },
