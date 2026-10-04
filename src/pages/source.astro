@@ -1,0 +1,162 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Hero from '../components/Hero.astro';
+import Headline from '../components/Headline.astro';
+import Button from '../components/Button.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Steps from '../components/Steps.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import Faq from '../components/Faq.astro';
+import EnquiryForm from '../components/EnquiryForm';
+import { sourcePillars, sourceScope, sourcePaths, sourceProcess, pilotSteps, sourceFaqs } from '../data/services';
+import { forms } from '../data/forms';
+import { whatsappMessages } from '../data/site';
+---
+
+<Base
+  title="Procuro Source · Managed procurement in and from India"
+  description="We find, verify and manage the right suppliers for buyers in India and buyers sourcing from India. Now onboarding pilot partners."
+  vertical="source"
+>
+  <Hero
+    variant="split"
+    headline="Your procurement team in India."
+    line="We find, verify and manage suppliers. You decide."
+    image="Procuro team inspecting material at a supplier plant"
+  >
+    <Button href="#brief" variant="accent">Book a sourcing call</Button>
+    <WhatsAppButton mode="inline" message={whatsappMessages.source} />
+    <p class="t-small mt-2 w-full text-ink-muted">Now onboarding pilot partners.</p>
+  </Hero>
+
+  <!-- What we do -->
+  <Section surface="concrete">
+    <div class="container-site">
+      <div class="grid-site mb-12 gap-y-6 lg:mb-16">
+        <Headline text="One partner, every step." class="col-span-12 lg:col-span-6" />
+        <div class="col-span-12 lg:col-span-5 lg:col-start-8 lg:pt-2">
+          <ul class="flex flex-wrap gap-2">
+            {sourceScope.map((item) => <li class="t-small rounded-tag border border-line-strong px-3 py-1.5">{item}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="grid gap-x-6 gap-y-10 md:grid-cols-3">
+        {
+          sourcePillars.map((p) => (
+            <div class="border-t-2 border-ink pt-5">
+              <h3 class="t-h3">{p.title.replace(/\.$/, '')}<span class="text-accent">.</span></h3>
+              <p class="measure mt-3 text-ink-muted">{p.text}</p>
+            </div>
+          ))
+        }
+      </div>
+      <p class="t-small mt-12 text-ink-muted">Source doesn't sell Procuro's own stock. We work to find the supplier that fits your requirement.</p>
+    </div>
+  </Section>
+
+  <!-- Two ways in -->
+  <Section>
+    <div class="container-site">
+      <Headline text="Two ways in." class="mb-12 lg:mb-16" />
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          sourcePaths.map((p) => (
+            <article class="flex flex-col gap-4 rounded-tag border border-line p-6 lg:p-10">
+              <h3 class="t-h2">{p.title.replace(/\.$/, '')}<span class="text-accent">.</span></h3>
+              <p class="measure text-ink-muted">{p.text}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Process -->
+  <Section surface="dark">
+    <div class="container-site">
+      <Headline text="How a project runs." class="mb-12 lg:mb-16" />
+      <Steps steps={sourceProcess} />
+    </div>
+  </Section>
+
+  <!-- Engagement models -->
+  <Section>
+    <div class="container-site">
+      <Headline text="Start small or go all in." class="mb-12 lg:mb-16" />
+      <div class="grid gap-6 lg:grid-cols-3">
+        <article class="flex flex-col gap-4 rounded-tag border border-line p-6 lg:p-8">
+          <h3 class="t-h3">One-off sourcing</h3>
+          <p class="t-small text-ink-muted">[TO CONFIRM: scope and how it's charged]</p>
+        </article>
+        <article class="flex flex-col gap-5 rounded-tag bg-concrete p-6 lg:p-8">
+          <h3 class="t-h3">Paid pilot<span class="text-accent">.</span></h3>
+          <ol class="flex flex-col gap-4">
+            {
+              pilotSteps.map((s, i) => (
+                <li class="t-small">
+                  <span class="font-semibold">
+                    {i + 1}. {s.title}
+                  </span>{' '}
+                  <span class="text-ink-muted">{s.text}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </article>
+        <article class="flex flex-col gap-4 rounded-tag border border-line p-6 lg:p-8">
+          <h3 class="t-h3">Ongoing program</h3>
+          <p class="t-small text-ink-muted">[TO CONFIRM: scope and how it's charged]</p>
+        </article>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Proof -->
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col gap-5 lg:col-span-5">
+        <Headline text="Sourced through Procuro." />
+        <p class="measure text-ink-muted">
+          Procuro has supplied construction materials, minerals and stone since 2023, to 20+ clients and 30+ real estate
+          projects. Source brings that experience to your procurement.
+        </p>
+      </div>
+      <div class="col-span-12 lg:col-span-6 lg:col-start-7">
+        <CaseStudyCard
+          vertical="source"
+          context="[TO CONFIRM: buyer type and country]"
+          title="[TO CONFIRM: case study title]"
+          problem="[TO CONFIRM: what the buyer needed]"
+          action="[TO CONFIRM: how Procuro Source found, checked and managed suppliers]"
+          result="[TO CONFIRM: the result]"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- FAQ -->
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="What buyers ask first." class="col-span-12 lg:col-span-4" />
+      <div class="col-span-12 lg:col-span-8">
+        <Faq items={sourceFaqs} />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Brief form -->
+  <Section surface="concrete" id="brief">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-4">
+        <Headline text="Send us your brief." />
+        <p class="measure mt-5 text-ink-muted">What you need, how much, and where it's going. We'll be in touch within one working day.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <div data-theme="light" class="bg-paper p-6 lg:p-10">
+          <EnquiryForm client:visible form={forms.brief} />
+        </div>
+      </div>
+    </div>
+  </Section>
+</Base>

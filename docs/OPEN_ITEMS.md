@@ -11,6 +11,8 @@ Facts and access still needed from the client. Until each arrives, show a visibl
 | [ ] Confirm proof figures: 2023 · 20+ clients · 30+ projects · 1,50,000+ sq ft | Home, Build, Stone | Stage 3 |
 | [ ] Procuro Source: categories sourced, countries served, how it's charged, who does quality checks | `/source`, Quality control | Stage 5 |
 | [ ] Export: currently exporting? Which documents and shipping terms are handled? | Logistics and export | Stage 5 |
+| [ ] Procuro Source engagement models: scope and pricing for one-off sourcing and the ongoing program (the paid pilot steps are in the copy) | `/source` | Stage 5 |
+| [ ] A sample quality report or certificate to show (the copy has a SEE A SAMPLE REPORT button) | Quality control | Stage 5 |
 | [ ] Registrations: GST, IEC, CIN, Udyam, ISO or others | Certifications, Home | Stage 7 |
 | [ ] Team: names, roles, photos | Company | Stage 7 |
 | [ ] Mineral spec sheet PDFs | Minerals | Stage 4 |

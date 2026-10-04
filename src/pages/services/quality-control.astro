@@ -1,0 +1,110 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import SpecTag from '../../components/SpecTag.astro';
+import Steps from '../../components/Steps.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { verifyByVertical, specTagRows } from '../../data/services';
+
+const vetting = ['Site visit', 'Documents', 'Sample test'];
+const inspections = ['Pre-production', 'In-line', 'Pre-shipment'];
+const documents = ['Test reports', 'Photos', 'Spec tag per lot'];
+---
+
+<Base
+  title="Quality control · Procuro India"
+  description="Quality reports, certificates of analysis and samples: what Verified means for every Procuro material, and how suppliers and orders are checked."
+>
+  <Hero
+    variant="split"
+    headline="Verified means checked."
+    line="Every supplier and every order, inspected to spec."
+    image="Inspector checking a slab against its spec tag"
+  >
+    <p class="measure t-small text-ink-muted">
+      We check materials in-house or through independent labs, depending on what they are. Verified appears on a spec
+      tag only when the batch has actually been checked.
+    </p>
+  </Hero>
+
+  <Section surface="concrete">
+    <div class="container-site flex flex-col gap-20 lg:gap-28">
+      <div class="grid-site gap-y-8">
+        <Headline text="Before we work with a supplier." class="col-span-12 lg:col-span-5" />
+        <div class="col-span-12 lg:col-span-7">
+          <Steps steps={vetting.map((title) => ({ title }))} class="!grid-cols-1 sm:!grid-cols-3 lg:!grid-cols-3" />
+        </div>
+      </div>
+      <div class="grid-site gap-y-8">
+        <Headline text="Before goods leave." class="col-span-12 lg:col-span-5" />
+        <div class="col-span-12 lg:col-span-7">
+          <Steps steps={inspections.map((title) => ({ title }))} class="!grid-cols-1 sm:!grid-cols-3 lg:!grid-cols-3" />
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-5">
+        <Headline text="What you receive." />
+        <ul class="flex flex-col self-stretch">
+          {documents.map((d) => <li class="t-h3 border-t border-line py-4 last:border-b">{d}</li>)}
+        </ul>
+        <p class="t-small text-ink-muted">Sample report: [TO CONFIRM: a sample report to share]</p>
+      </div>
+      <div class="col-span-12 lg:col-span-6 lg:col-start-7">
+        <SpecTag
+          vertical="minerals"
+          name="Procuro Minerals"
+          code="PR-MN-T92"
+          rows={[
+            { label: 'Material', value: 'Procuro Talc P92' },
+            { label: 'Whiteness', value: '94.00' },
+            { label: 'Mesh', value: '400' },
+            { label: 'Certificate of analysis', value: 'Attached' },
+            { label: 'Status', value: 'Verified' },
+          ]}
+          caption="Example tag"
+        />
+        <h3 class="t-h3 mt-12 mb-4">Reading a spec tag<span class="text-accent">.</span></h3>
+        <dl class="flex flex-col">
+          {
+            specTagRows.map((r) => (
+              <div class="grid grid-cols-[8rem_1fr] gap-4 border-t border-line py-3">
+                <dt class="t-small font-semibold">{r.label}</dt>
+                <dd class="t-small text-ink-muted">{r.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <Headline text="How each line is checked." class="mb-12 lg:mb-16" />
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          verifyByVertical.map((v) => (
+            <article data-vertical={v.vertical} class="flex flex-col gap-4 rounded-tag bg-paper p-6 lg:p-8">
+              <h3 class="t-h3">{v.name}<span class="text-accent">.</span></h3>
+              <p class="t-small text-ink-muted">{v.text}</p>
+              <a href={`/${v.vertical}`} class="t-small mt-auto font-semibold text-accent-text underline underline-offset-4">
+                Go to {v.name}
+              </a>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+  </CtaBand>
+</Base>

@@ -159,7 +159,7 @@ body {
 @utility t-hero {
   font-stretch: 125%;
   font-weight: 700;
-  font-size: clamp(48px, 7vw, 104px);
+  font-size: clamp(40px, 7vw, 104px);
   line-height: 1;
   letter-spacing: -0.01em;
 }

@@ -1,0 +1,39 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { services } from '../../data/services';
+---
+
+<Base title="Services · Procuro India" description="Procuro Source, quality control, and logistics and export: how Procuro India finds, checks and delivers what you buy.">
+  <Hero variant="text" headline="How we deliver." line="Finding the right supplier, checking what they make, and getting it to you." />
+
+  {
+    services.map((s, i) => (
+      <Section surface={i % 2 ? 'paper' : 'concrete'} data-vertical={s.vertical}>
+        <div class="container-site grid-site items-center gap-y-10">
+          <div class:list={['col-span-12 lg:col-span-6', i % 2 && 'lg:order-2 lg:col-start-7']}>
+            <ImagePlaceholder label={s.image} ratio="4 / 3" class={i % 2 ? undefined : '!bg-paper'} />
+          </div>
+          <div class:list={['col-span-12 flex flex-col items-start gap-6 lg:col-span-5', i % 2 ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-8']}>
+            <p class="t-h3">
+              {s.name}
+              {s.vertical && <span class="text-accent">.</span>}
+            </p>
+            <Headline text={s.headline} size="h1" />
+            <p class="measure text-ink-muted">{s.line}</p>
+            <Button href={s.href} variant={s.vertical ? 'accent' : 'primary'}>{s.cta}</Button>
+          </div>
+        </div>
+      </Section>
+    ))
+  }
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+  </CtaBand>
+</Base>

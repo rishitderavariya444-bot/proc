@@ -14,10 +14,6 @@ export interface Stub {
 }
 
 export const stubs: Stub[] = [
-  { path: 'services', title: 'Services', headline: 'How we deliver.', line: 'Procuro Source, quality control, and logistics and export.', stage: 5 },
-  { path: 'source', title: 'Procuro Source', headline: 'Your procurement team in India.', line: 'We find, verify and manage suppliers. You decide.', vertical: 'source', stage: 5 },
-  { path: 'services/quality-control', title: 'Quality control', headline: 'Verified means checked.', line: 'Every supplier and every order, inspected to spec.', stage: 5 },
-  { path: 'services/logistics', title: 'Logistics and export', headline: 'From the plant to your door.', line: 'Delivery across India and export to your port.', stage: 5 },
   { path: 'industries', title: 'Industries', headline: 'Who we work with.', line: 'Developers, manufacturers, designers and international buyers.', stage: 6 },
   { path: 'industries/real-estate-construction', title: 'Real estate and construction', headline: 'Built for site teams.', line: 'Materials on spec and on schedule, for every phase.', stage: 6 },
   { path: 'industries/paints-coatings-manufacturing', title: 'Paints, coatings and manufacturing', headline: 'Consistent input. Consistent output.', line: 'Graded minerals your formulation can count on.', stage: 6 },

@@ -1,0 +1,77 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const inIndia = [
+  { title: 'Where we deliver', text: 'Build supplies sites across Mumbai and MMR, Pune and Ahmedabad. Stone is installed anywhere in India.' },
+  { title: 'Your calendar', text: 'Masonry and plaster run against your pour and plaster programme.' },
+  { title: 'At the gate', text: 'Your coordinator gets vehicle details and the quality report before the truck arrives.' },
+];
+const exportItems = ['Export documents', 'Packing', 'Freight booking'];
+---
+
+<Base
+  title="Logistics and export · Procuro India"
+  description="Delivery to site across India and export from India: scheduled drops, export documents, packing and freight booking."
+>
+  <Hero
+    variant="split"
+    headline="From the plant to your door."
+    line="Delivery across India and export to your port."
+    image="A loaded truck leaving the yard"
+  >
+    <Button href="/contact">Get a quote</Button>
+  </Hero>
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col gap-5 lg:col-span-5">
+        <Headline text="Delivered to site." />
+        <p class="measure text-ink-muted">Scheduled drops, tracked to the gate.</p>
+      </div>
+      <dl class="col-span-12 flex flex-col lg:col-span-7">
+        {
+          inIndia.map((item) => (
+            <div class="flex flex-col gap-1 border-t border-line-strong py-5 sm:flex-row sm:gap-8">
+              <dt class="t-h3 sm:w-2/5 sm:shrink-0">{item.title}</dt>
+              <dd class="text-ink-muted">{item.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site items-center gap-y-10">
+      <div class="col-span-12 lg:col-span-6">
+        <ImagePlaceholder label="Crated stone ready for export" ratio="4 / 3" />
+      </div>
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-5 lg:col-start-8">
+        <Headline text="Paperwork handled." />
+        <ul class="flex flex-col self-stretch">
+          {exportItems.map((d) => <li class="t-h3 border-t border-line py-4 last:border-b">{d}</li>)}
+        </ul>
+        <p class="t-small text-ink-muted">[TO CONFIRM: which export documents and shipping terms are handled]</p>
+        <p class="measure text-ink-muted">
+          For buyers sourcing from India, Procuro Source manages orders through to dispatch and handles the export
+          documentation. We're starting with natural stone.
+        </p>
+        <a href="/source" data-vertical="source" class="t-small font-semibold text-accent-text underline underline-offset-4">
+          Go to Procuro Source
+        </a>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand headline="Plan a shipment." line="Tell us the destination and timing." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+    <WhatsAppButton mode="inline" />
+  </CtaBand>
+</Base>

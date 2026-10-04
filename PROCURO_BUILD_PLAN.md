@@ -58,10 +58,10 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 
 **Done when:** all product pages build with no errors.
 
-## Stage 5 — Services
-- [ ] `/services` index
-- [ ] `/source` (Procuro Source)
-- [ ] `/services/quality-control`, `/services/logistics`
+## Stage 5 — Services ✅
+- [x] `/services` index
+- [x] `/source` (Procuro Source)
+- [x] `/services/quality-control`, `/services/logistics`
 
 ## Stage 6 — Industries
 - [ ] `/industries` index + 4 industry pages
@@ -103,3 +103,4 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 | 2026-10-04 | 2 | Headline, Hero (band, split, text), SectionHeader, ProofBar, Card, CtaBand, SpecTag, SpecTable, Gallery + lightbox, FAQ (accordion + FAQPage JSON-LD), CaseStudyCard, QuoteBlock, LogoStrip, ImagePlaceholder and EnquiryForm (all six forms defined in `src/data/forms.ts`, UI only) are on `/styleguide`. Clicked through FAQ, form validation, select, lightbox and keyboard arrows at 375px and 1440px. Note for Stage 3: Unsplash and Pexels are blocked from the build container, so photos need another route in. |
 | 2026-10-04 | 3 | Home page with all 11 sections. Proof figures shown as supplied but still awaiting sign-off; client quote, logos and registration numbers are visible `[TO CONFIRM]` placeholders; photos are labelled placeholders. Holding pages for every other route (`src/data/stubs.ts`, noindex) so all links resolve; remove each entry when its real page is built. Link check: 0 broken. Checked at 360px, 820px and 1440px. |
 | 2026-10-04 | 4 | Data in `src/data/build.ts`, `minerals.ts`, `stone.ts`. `/products`, `/build`, `/minerals`, `/stone`, plus generated pages: 15 Build materials, 3 talc grades and 2 quicklime forms (powder, lump), 6 stone families and 73 stones (121 pages in all). Shared `ProductPage` layout with breadcrumbs (BreadcrumbList JSON-LD) and a per-product WhatsApp message. Talc tier labels omitted pending the PREMIUM decision; stone origins hidden until confirmed. Link and anchor check: 0 broken. Checked at 360px and 1440px. |
+| 2026-10-04 | 5 | `/services`, `/source` (what we do, two ways in, six-step process, engagement models, proof, FAQ, brief form), `/services/quality-control` (vetting, inspections, what you receive, spec tag explainer, checks by vertical) and `/services/logistics`. Engagement-model pricing, export terms and a sample report are `[TO CONFIRM]`. Hero headline minimum lowered from 48px to 40px, and split-hero headlines capped at 88px, so long words like "procurement" fit at 360px and beside the photo. Link check: 0 broken. |
