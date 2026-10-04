@@ -1,0 +1,13 @@
+@import '@fontsource-variable/archivo/wdth.css';
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Archivo Variable', system-ui, sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+  font-stretch: 100%;
+  background: #fff;
+  color: #000;
+}
