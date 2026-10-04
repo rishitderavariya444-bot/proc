@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { actions, isInputError } from 'astro:actions';
 import { Form } from '@base-ui/react/form';
 import { Field } from '@base-ui/react/field';
 import { Select } from '@base-ui/react/select';
 import type { FormDefinition, FormField } from '../data/forms';
+import { site, whatsappHref } from '../data/site';
 
 interface Props {
   form: FormDefinition;
@@ -15,16 +17,44 @@ const inputCls =
 const labelCls = 't-small font-semibold text-ink';
 const errorCls = 't-small text-[#B42318] [[data-theme=dark]_&]:text-[#FDA29B]';
 
-export default function EnquiryForm({ form, showTitle = false }: Props) {
-  const [sent, setSent] = useState(false);
+type Status = 'idle' | 'sending' | 'sent' | 'failed';
 
-  if (sent) {
+export default function EnquiryForm({ form, showTitle = false }: Props) {
+  const [status, setStatus] = useState<Status>('idle');
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const formRef = useRef<HTMLFormElement>(null);
+
+  async function submit() {
+    const formElement = formRef.current;
+    if (!formElement) return;
+    setStatus('sending');
+    setErrors({});
+    try {
+      const { data, error } = await actions.enquiry(new FormData(formElement));
+      if (error) {
+        if (isInputError(error)) setErrors(Object.fromEntries(Object.entries(error.fields).map(([k, v]) => [k, v?.[0] ?? ''])));
+        setStatus('failed');
+        return;
+      }
+      if (data && !data.ok) {
+        setErrors(data.errors);
+        setStatus('idle');
+        return;
+      }
+      setStatus('sent');
+    } catch (err) {
+      console.error('Enquiry failed', err);
+      setStatus('failed');
+    }
+  }
+
+  if (status === 'sent') {
     return (
       <div role="status" className="rounded-tag border border-line p-6 lg:p-8">
         <p className="t-h3">{form.confirmation}</p>
         <button
           type="button"
-          onClick={() => setSent(false)}
+          onClick={() => setStatus('idle')}
           className="t-button mt-6 inline-flex min-h-12 items-center rounded-tag border border-ink px-6 text-ink hover:bg-ink hover:text-paper"
         >
           Send another
@@ -37,9 +67,10 @@ export default function EnquiryForm({ form, showTitle = false }: Props) {
     <Form
       className="flex flex-col gap-8"
       aria-label={form.title.replace(/\.$/, '')}
+      errors={errors}
+      ref={formRef}
       onFormSubmit={() => {
-        // UI only for now. Stage 8 sends this to sales@procuro.in via an Astro Action.
-        setSent(true);
+        submit();
       }}
     >
       {showTitle && (
@@ -50,6 +81,13 @@ export default function EnquiryForm({ form, showTitle = false }: Props) {
       )}
       <input type="hidden" name="form_id" value={form.id} />
       {form.vertical && <input type="hidden" name="vertical" value={form.vertical} />}
+      {/* Spam trap: hidden from people and screen readers, filled by bots. */}
+      <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
+        <label>
+          Leave this empty
+          <input type="text" name="website" tabIndex={-1} autoComplete="off" />
+        </label>
+      </div>
 
       <div className="grid gap-x-6 gap-y-6 sm:grid-cols-2">
         {form.fields.map((field) => (
@@ -59,12 +97,31 @@ export default function EnquiryForm({ form, showTitle = false }: Props) {
 
       <p className="t-small text-ink-muted">Fields marked optional can be left blank.</p>
 
+      {status === 'failed' && (
+        <div role="alert" className="rounded-tag border-2 border-[#B42318] p-5 [[data-theme=dark]_&]:border-[#FDA29B]">
+          <p className="font-semibold">Your message didn't send.</p>
+          <p className="t-small mt-1 text-ink-muted">
+            Please try again. If it still doesn't work, email{' '}
+            <a href={`mailto:${site.email}`} className="text-ink underline underline-offset-4">
+              {site.email}
+            </a>{' '}
+            or{' '}
+            <a href={whatsappHref()} target="_blank" rel="noopener" className="text-ink underline underline-offset-4">
+              message us on WhatsApp
+            </a>
+            .
+          </p>
+        </div>
+      )}
+
       <div>
         <button
           type="submit"
-          className="t-button inline-flex min-h-12 items-center justify-center rounded-tag bg-accent px-8 text-on-accent hover:brightness-110"
+          disabled={status === 'sending'}
+          aria-disabled={status === 'sending'}
+          className="t-button inline-flex min-h-12 items-center justify-center rounded-tag bg-accent px-8 text-on-accent hover:brightness-110 disabled:opacity-60"
         >
-          {form.submit}
+          {status === 'sending' ? 'Sending' : form.submit}
         </button>
       </div>
     </Form>

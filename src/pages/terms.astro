@@ -1,0 +1,24 @@
+---
+// Draft for legal review (docs/content/procuro-website-content.md).
+// Bracketed gaps are tracked in docs/OPEN_ITEMS.md.
+import LegalPage from '../layouts/LegalPage.astro';
+
+const sections = [
+  { heading: 'Use of the site', body: "procuro.in gives information about Procuro's services and products. Using the site means you accept these terms." },
+  { heading: 'Product information', body: 'Specifications, grades and figures are given in good faith and may change. The specification agreed in your order and its accompanying documents (quality report or certificate of analysis) governs every supply.' },
+  { heading: 'Quotes and orders', body: 'Nothing on the site is an offer to sell. Prices, quantities, delivery and payment terms are set in a written quote or order, project by project.' },
+  { heading: 'Samples', body: 'Samples are free; delivery charges apply.' },
+  { heading: 'Intellectual property', body: 'The Procuro name, logo, text, photographs and documents on the site belong to Deravariya India Private Limited and may not be reused without permission.' },
+  { heading: 'Liability', body: 'We take care to keep the site accurate but do not guarantee it is error-free or always available. [TO CONFIRM: limitation of liability wording from the lawyer]' },
+  { heading: 'Third-party links', body: 'We are not responsible for external sites linked from procuro.in.' },
+  { heading: 'Governing law', body: 'These terms are governed by the laws of India, with courts at [TO CONFIRM: Mumbai or Jaipur] having jurisdiction.' },
+  { heading: 'Contact', body: 'sales@procuro.in' },
+];
+---
+
+<LegalPage
+  title="Terms of use · Procuro India"
+  description="Terms of use for procuro.in, the website of Procuro India, a brand of Deravariya India Private Limited."
+  headline="Terms of use."
+  sections={sections}
+/>

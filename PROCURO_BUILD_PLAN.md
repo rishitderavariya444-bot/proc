@@ -71,12 +71,14 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 - [x] `/company`, `/company/certifications`
 - [x] `/suppliers`
 
-## Stage 8 — Contact and forms
-- [ ] `/contact` with routes, form and direct details
-- [ ] Astro Action sends form emails via Resend to sales@procuro.in
-- [ ] Wire all forms; success and error states
-- [ ] Pre-filled WhatsApp message on each page
-- [ ] `/privacy`, `/terms`
+## Stage 8 — Contact and forms (built; live email test waiting on Resend)
+- [x] `/contact` with routes, form and direct details
+- [x] Astro Action sends form emails via Resend to sales@procuro.in
+- [x] Wire all forms; success and error states
+- [x] Pre-filled WhatsApp message on each page
+- [x] `/privacy`, `/terms`
+
+- [ ] Live test: Resend key set in Vercel, a real enquiry arrives at sales@procuro.in
 
 **Done when:** a test enquiry arrives by email and WhatsApp opens with the right message.
 
@@ -129,3 +131,4 @@ Decision (2026-10-04): free Unsplash photos for general scenes only. Individual 
 | 2026-10-04 | 5 | `/services`, `/source` (what we do, two ways in, six-step process, engagement models, proof, FAQ, brief form), `/services/quality-control` (vetting, inspections, what you receive, spec tag explainer, checks by vertical) and `/services/logistics`. Engagement-model pricing, export terms and a sample report are `[TO CONFIRM]`. Hero headline minimum lowered from 48px to 40px, and split-hero headlines capped at 88px, so long words like "procurement" fit at 360px and beside the photo. Link check: 0 broken. |
 | 2026-10-04 | 6 | `/industries` and four industry pages generated from `src/data/industries.ts`: hero, what we supply (reusing Build, Minerals, Stone and Source copy), who it's for, a `[TO CONFIRM]` case study, other industries, CTA. Each page takes the accent of its main vertical. Link check: 0 broken. Checked at 360px and 1440px. |
 | 2026-10-04 | 7 | `/why-procuro` (the map in words, how we verify, three `[TO CONFIRM]` case studies), `/company` (about, facts, team placeholders, how we work, both offices with Google Maps links), `/company/certifications` (GST, IEC, CIN, Udyam and other certifications as `[TO CONFIRM]`; documents per vertical) and `/suppliers` (benefits, criteria, steps, application form). Dropped the old copy's "sharpened by every order we handle and every check we run" clause about the map, because CLAUDE.md forbids saying what feeds it. Link check: 0 broken. |
+| 2026-10-04 | 8 | `/contact` (three routes, general form, direct details, reply times, offices), `/privacy` and `/terms` (copy as drafted, gaps as `[TO CONFIRM]`), holding pages removed. All six forms post to the `enquiry` Astro Action (`src/actions/index.ts`), which re-validates on the server, drops honeypot spam and emails sales@procuro.in through Resend with the form name and vertical in the subject and Reply-To set to the buyer. Tested locally with Resend stubbed: success, failure and server-side errors all behave, and HTML in messages is escaped. WhatsApp message checked on every page type. Not yet ticked off: a real email, which needs RESEND_API_KEY in Vercel. |

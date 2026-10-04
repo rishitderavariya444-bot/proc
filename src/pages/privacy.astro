@@ -1,0 +1,25 @@
+---
+// Draft for legal review against the Digital Personal Data Protection Act,
+// 2023 and the IT Act (docs/content/procuro-website-content.md). Bracketed
+// gaps are tracked in docs/OPEN_ITEMS.md.
+import LegalPage from '../layouts/LegalPage.astro';
+
+const sections = [
+  { heading: 'Who we are', body: 'Procuro India is a brand of Deravariya India Private Limited, with offices in Mumbai and Jaipur. This policy explains how we handle personal data collected through procuro.in.' },
+  { heading: 'What we collect', body: 'Details you give us in forms (name, company, role, email, phone or WhatsApp number, site or delivery address, and your requirement), and basic technical data such as pages visited and device type, collected through cookies and analytics.' },
+  { heading: 'Why we use it', body: 'To reply to your enquiry, prepare quotes and samples, deliver orders, and improve the website. We do not sell your personal data.' },
+  { heading: 'Who we share it with', body: 'Only the people who need it to fulfil your request, such as logistics partners or a supplier handling your order, and service providers that run our website and email, under confidentiality.' },
+  { heading: 'How long we keep it', body: 'As long as needed for your enquiry or orders, and as required by law (for example, tax records).' },
+  { heading: 'Your rights', body: 'You can ask to access, correct or erase your personal data, or withdraw consent, by writing to [TO CONFIRM: privacy contact email].' },
+  { heading: 'Cookies', body: 'We use essential cookies to run the site and analytics cookies to understand its use. You can decline non-essential cookies.' },
+  { heading: 'Grievances', body: '[TO CONFIRM: name and designation of the grievance officer, email and address]. We respond within the period the law requires.' },
+  { heading: 'Changes', body: 'We will post updates on this page with a revised date.' },
+];
+---
+
+<LegalPage
+  title="Privacy policy · Procuro India"
+  description="How Procuro India, a brand of Deravariya India Private Limited, handles personal data collected through procuro.in."
+  headline="Privacy policy."
+  sections={sections}
+/>

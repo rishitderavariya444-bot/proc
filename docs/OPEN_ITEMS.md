@@ -35,6 +35,16 @@ Facts and access still needed from the client. Until each arrives, show a visibl
 |---|---|
 | [ ] Confirm sales@procuro.in receives enquiries | Forms |
 | [ ] Confirm WhatsApp number +91 98201 80267 | WhatsApp button |
-| [ ] Resend account | Form emails |
+| [ ] Resend account, then add `RESEND_API_KEY` in Vercel (Project → Settings → Environment Variables) and redeploy | Form emails |
+| [ ] Verify procuro.in in Resend and set `FORM_FROM` (for example `Procuro website <website@procuro.in>`). Until then Resend's test sender only delivers to the email on the Resend account | Form emails |
 | [ ] DNS access for procuro.in | Vercel domain + Resend records |
 | [ ] GitHub and Vercel (Pro) accounts | Deploy |
+
+## Legal (Stage 8)
+| Needed | Used on |
+|---|---|
+| [ ] Legal review of the privacy policy (DPDP Act 2023, IT Act) and terms, and a "last updated" date | `/privacy`, `/terms` |
+| [ ] Privacy contact email | `/privacy` |
+| [ ] Grievance officer: name, designation, email, address | `/privacy` |
+| [ ] Limitation of liability wording | `/terms` |
+| [ ] Courts with jurisdiction: Mumbai or Jaipur | `/terms` |

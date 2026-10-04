@@ -1,0 +1,111 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Hero from '../components/Hero.astro';
+import Headline from '../components/Headline.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import EnquiryForm from '../components/EnquiryForm';
+import { forms } from '../data/forms';
+import { site } from '../data/site';
+
+const routes = [
+  {
+    title: 'Buy materials',
+    text: 'Quotes and samples from our own supply.',
+    links: [
+      { label: 'Request a quote for Build', href: '/build#quote', vertical: 'build' },
+      { label: 'Request a mineral sample', href: '/minerals#sample', vertical: 'minerals' },
+      { label: 'Order stone samples', href: '/stone#samples', vertical: 'stone' },
+    ],
+  },
+  {
+    title: 'Source from India',
+    text: 'Send a brief to Procuro Source.',
+    links: [{ label: 'Send a brief', href: '/source#brief', vertical: 'source' }],
+  },
+  {
+    title: 'Supply to Procuro',
+    text: 'For manufacturers, quarries and producers.',
+    links: [{ label: 'Apply to supply', href: '/suppliers#apply' }],
+  },
+] as const;
+
+const mapsHref = (address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+---
+
+<Base
+  title="Contact Procuro India · Mumbai and Jaipur"
+  description="Request a quote, a sample or send a sourcing brief. Build replies the same day; everything else within one working day."
+>
+  <Hero variant="text" headline="Tell us what you need." line="Pick a route and we reply within one working day." />
+
+  <!-- Routes -->
+  <Section surface="concrete" class="!pt-14 lg:!pt-20">
+    <div class="container-site grid gap-6 md:grid-cols-3">
+      {
+        routes.map((r) => (
+          <div data-theme="light" class="flex flex-col gap-4 rounded-tag bg-paper p-6 lg:p-8">
+            <h2 class="t-h3">{r.title}</h2>
+            <p class="t-small text-ink-muted">{r.text}</p>
+            <ul class="mt-auto flex flex-col gap-2 pt-2">
+              {r.links.map((l) => (
+                <li data-vertical={'vertical' in l ? l.vertical : undefined}>
+                  <a href={l.href} class="t-small font-semibold text-accent-text underline underline-offset-4">
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- Form and direct details -->
+  <Section id="quote">
+    <div class="container-site grid-site gap-y-14">
+      <div class="col-span-12 lg:col-span-7">
+        <Headline text="Send us a message." class="mb-10" />
+        <EnquiryForm client:visible form={forms.general} />
+      </div>
+      <aside class="col-span-12 flex flex-col gap-10 lg:col-span-4 lg:col-start-9" aria-label="Direct contact details">
+        <div class="flex flex-col gap-3">
+          <h2 class="t-h3">Direct<span class="text-accent">.</span></h2>
+          <a href={`mailto:${site.email}`} class="text-ink underline underline-offset-4">{site.email}</a>
+          <a href={site.phoneHref} class="text-ink underline underline-offset-4">{site.phone}</a>
+          <div class="pt-2"><WhatsAppButton mode="inline" /></div>
+        </div>
+        <div class="flex flex-col gap-2">
+          <h2 class="t-h3">Reply times<span class="text-accent">.</span></h2>
+          <p class="t-small text-ink-muted">Build replies the same day. Everything else gets a reply within one working day.</p>
+        </div>
+      </aside>
+    </div>
+  </Section>
+
+  <!-- Offices -->
+  <Section surface="concrete">
+    <div class="container-site">
+      <Headline text="Two offices, one team." class="mb-12 lg:mb-16" />
+      <div class="grid gap-x-6 gap-y-12 md:grid-cols-2">
+        {
+          site.offices.map((o) => (
+            <div class="flex flex-col gap-4 border-t-2 border-ink pt-6">
+              <h3 class="t-h2">{o.city}<span class="text-accent">.</span></h3>
+              <address class="measure not-italic text-ink-muted">{o.full}</address>
+              <a
+                href={mapsHref(`${o.full}, India`)}
+                target="_blank"
+                rel="noopener"
+                class="t-small font-semibold text-ink underline underline-offset-4"
+              >
+                Open in Google Maps<span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+</Base>

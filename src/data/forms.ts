@@ -1,5 +1,6 @@
 // Form definitions (docs/SITEMAP.md "Forms", field detail from
-// docs/content/procuro-website-content.md). Sending is wired in Stage 8.
+// docs/content/procuro-website-content.md). Submissions go to sales@procuro.in
+// through the enquiry action (src/actions/index.ts).
 
 import type { Vertical } from './site';
 
@@ -118,8 +119,10 @@ export const forms = {
       { name: 'company', label: 'Company', type: 'text', autoComplete: 'organization' },
       { name: 'email', label: 'Email', type: 'email', required: true, autoComplete: 'email' },
       { name: 'phone', label: 'Phone or WhatsApp', type: 'tel', required: true, autoComplete: 'tel' },
-      { name: 'route', label: 'What is this about?', type: 'select', required: true, options: ['Buying materials', 'Sourcing from India', 'Supplying to Procuro', 'Something else'] },
-      { name: 'message', label: 'Message', type: 'textarea', required: true, wide: true },
+      { name: 'route', label: 'What is this about?', type: 'select', required: true, options: ['Buying materials: Build', 'Buying materials: Minerals', 'Buying materials: Stone', 'Sourcing from India', 'Supplying to Procuro', 'Something else'], wide: true },
+      { name: 'need', label: 'What you need', type: 'textarea', required: true, wide: true },
+      { name: 'quantity', label: 'Quantity', type: 'text' },
+      { name: 'location', label: 'Delivery location or destination', type: 'text' },
     ],
     submit: 'Send message',
     confirmation: "Thank you. We'll be in touch within one working day.",
