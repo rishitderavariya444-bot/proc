@@ -1,0 +1,38 @@
+---
+import type { Vertical } from '../data/site';
+
+interface Props {
+  /** Short title, e.g. the client type and what was supplied. */
+  title: string;
+  /** Who it was for, e.g. "Developer, Mumbai". */
+  context?: string;
+  problem: string;
+  action: string;
+  result: string;
+  vertical?: Vertical;
+  class?: string;
+}
+const { title, context, problem, action, result, vertical, class: className } = Astro.props;
+const steps = [
+  ['The problem', problem],
+  ['What we did', action],
+  ['The result', result],
+];
+---
+
+<article data-vertical={vertical} class:list={['flex flex-col gap-6 rounded-tag border border-line bg-paper p-6 lg:p-8', className]}>
+  <header class="flex flex-col gap-2">
+    {context && <p class="t-small text-ink-muted">{context}</p>}
+    <h3 class="t-h3">{title}<span class="text-accent">.</span></h3>
+  </header>
+  <dl class="flex flex-col gap-5">
+    {
+      steps.map(([label, value]) => (
+        <div>
+          <dt class="t-small font-semibold">{label}</dt>
+          <dd class="t-small mt-1 text-ink-muted">{value}</dd>
+        </div>
+      ))
+    }
+  </dl>
+</article>

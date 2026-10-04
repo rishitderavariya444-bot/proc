@@ -1,0 +1,23 @@
+---
+import FaqAccordion, { type FaqItem } from './FaqAccordion';
+
+interface Props {
+  items: FaqItem[];
+  /** Output FAQPage structured data. Turn off for demo copies. */
+  schema?: boolean;
+}
+const { items, schema = true } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<FaqAccordion client:visible items={items} />
+{schema && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}

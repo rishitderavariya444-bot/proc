@@ -1,0 +1,23 @@
+---
+import Section from './Section.astro';
+import Headline from './Headline.astro';
+
+interface Props {
+  headline: string;
+  line?: string;
+  surface?: 'paper' | 'concrete' | 'dark' | 'dark-concrete';
+}
+const { headline, line, surface = 'concrete' } = Astro.props;
+---
+
+<Section surface={surface}>
+  <div class="container-site grid-site gap-y-8">
+    <div class="col-span-12 lg:col-span-7">
+      <Headline text={headline} size="h1" />
+      {line && <p class="measure mt-5 text-ink-muted">{line}</p>}
+    </div>
+    <div class="col-span-12 flex flex-wrap items-end gap-3 lg:col-span-5 lg:justify-end">
+      <slot />
+    </div>
+  </div>
+</Section>

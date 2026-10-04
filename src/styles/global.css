@@ -111,6 +111,8 @@
    ------------------------------------------------------------------ */
 
 html {
+  /* Keep anchors and focused fields clear of the sticky header. */
+  scroll-padding-top: 96px;
   font-family: var(--font-sans);
   font-stretch: 100%;
   -webkit-text-size-adjust: 100%;

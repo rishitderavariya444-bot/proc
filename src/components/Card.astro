@@ -1,0 +1,37 @@
+---
+import ImagePlaceholder from './ImagePlaceholder.astro';
+import type { Vertical } from '../data/site';
+
+interface Props {
+  title: string;
+  text?: string;
+  href?: string;
+  /** Link text shown under the card body, e.g. "Explore Stone". */
+  linkLabel?: string;
+  /** Placeholder label until a real photo exists. */
+  image?: string;
+  ratio?: string;
+  vertical?: Vertical;
+  /** Show the vertical full stop after the title. */
+  stop?: boolean;
+  class?: string;
+}
+const { title, text, href, linkLabel, image, ratio = '4 / 3', vertical, stop = !!vertical, class: className } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<Tag
+  href={href}
+  data-vertical={vertical}
+  class:list={['group flex min-w-0 flex-col gap-5 text-ink no-underline', className]}
+>
+  {image && <ImagePlaceholder label={image} ratio={ratio} />}
+  <div class="flex flex-col gap-2">
+    <h3 class="t-h3 decoration-2 underline-offset-4 group-hover:underline">
+      {title}{stop && <span class="text-accent">.</span>}
+    </h3>
+    {text && <p class="t-small measure text-ink-muted">{text}</p>}
+    <slot />
+    {href && linkLabel && <span class="t-small mt-1 font-semibold text-accent-text">{linkLabel}</span>}
+  </div>
+</Tag>

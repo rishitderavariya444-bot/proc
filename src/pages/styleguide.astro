@@ -4,6 +4,22 @@ import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import Logo from '../components/Logo';
+import Headline from '../components/Headline.astro';
+import Hero from '../components/Hero.astro';
+import SectionHeader from '../components/SectionHeader.astro';
+import ProofBar from '../components/ProofBar.astro';
+import Card from '../components/Card.astro';
+import CtaBand from '../components/CtaBand.astro';
+import SpecTag from '../components/SpecTag.astro';
+import SpecTable from '../components/SpecTable.astro';
+import Gallery from '../components/Gallery';
+import Faq from '../components/Faq.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import QuoteBlock from '../components/QuoteBlock.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import EnquiryForm from '../components/EnquiryForm';
+import { forms } from '../data/forms';
 import type { Vertical } from '../data/site';
 
 // Raw values, mirrored from src/styles/global.css, for labels and the
@@ -53,6 +69,42 @@ const typeScale = [
   { cls: 't-spec', role: 'Spec values', spec: 'Width 100, weight 500, 16px, line height 1.4, tabular numbers', sample: 'PR-MN-T92 0123456789' },
 ];
 
+
+const proof = [
+  { figure: '2023', label: 'Supplying since' },
+  { figure: '20+', label: 'Clients' },
+  { figure: '30+', label: 'Real estate projects' },
+  { figure: '1,50,000+', label: 'Sq ft of flooring and stone' },
+];
+
+const talcTable = {
+  columns: ['Parameter', 'P92', 'I90', 'E85'],
+  rows: [
+    ['Brightness', '92.00', '90.40', '85.20'],
+    ['Whiteness', '94.00', '91.80', '87.00'],
+    ['Oil absorption (g/100 g)', '31.43', '35.52', '32.43'],
+    ['SiO₂ (%)', '32.50', '55.20', '55.20'],
+    ['CaO (%)', '16.27', '7.72', '8.68'],
+    ['MgO (%)', '24.13', '28.12', '27.40'],
+    ['pH', '8.4', '8.2', '8.4'],
+  ],
+};
+
+const faqs = [
+  { q: 'Which grades do you supply?', a: 'The P92, I90 and E85 talc grades, quicklime in two CaO grades, and custom talc grades on request.' },
+  { q: 'Do you provide a certificate of analysis?', a: 'Yes, with every lot, as standard.' },
+  { q: 'Are samples free?', a: 'Yes. You pay only for delivery.' },
+];
+
+const galleryImages = [
+  { alt: 'Polished granite slabs in the yard' },
+  { alt: 'Honed marble, close detail' },
+  { alt: 'Sandstone pavers, flamed finish' },
+  { alt: 'Slate tiles, natural cleft' },
+  { alt: 'Limestone flooring, installed' },
+  { alt: 'Stone cladding on a finished building' },
+];
+
 const sgHeading = 't-h2 mb-4';
 const sgLead = 'measure mb-12 text-ink-muted';
 ---
@@ -73,6 +125,8 @@ const sgLead = 'measure mb-12 text-ink-muted';
         <li><a href="#buttons" class="text-ink underline underline-offset-4">Buttons</a></li>
         <li><a href="#logo" class="text-ink underline underline-offset-4">Logo</a></li>
         <li><a href="#chrome" class="text-ink underline underline-offset-4">Header, footer, WhatsApp</a></li>
+        <li><a href="#components" class="text-ink underline underline-offset-4">Page components</a></li>
+        <li><a href="#forms" class="text-ink underline underline-offset-4">Enquiry form</a></li>
       </ul>
     </div>
   </Section>
@@ -282,6 +336,242 @@ const sgLead = 'measure mb-12 text-ink-muted';
             </div>
           ))
         }
+      </div>
+    </div>
+  </Section>
+
+
+  <!-- ============ Stage 2: page components ============ -->
+  <Section surface="concrete" id="components">
+    <div class="container-site">
+      <h2 class="t-h1">Page components<span class="text-accent">.</span></h2>
+      <p class="measure mt-6 text-ink-muted">
+        The building blocks every page is made from. Copy below is sample text from the content files; figures marked
+        to confirm are still waiting on the client.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site flex flex-col gap-10">
+      <h2 class={sgHeading}>Headline<span class="text-accent">.</span></h2>
+      <p class="measure -mt-10 text-ink-muted">The final full stop takes the page's accent. Master pages use ink.</p>
+      <Headline text="Right material. Right price. Right partner." as="p" size="h1" />
+      {
+        accents.map((a) => (
+          <div data-vertical={a.vertical}>
+            <Headline text={`${a.name} headline with an accent full stop.`} as="p" size="h2" />
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <div class="bg-concrete pt-18 lg:pt-28" data-theme="light">
+    <div class="container-site">
+      <h2 class={sgHeading}>Hero: band<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Home page. Full-bleed photograph, black band, expanded headline. The full stop fades in last.</p>
+    </div>
+  </div>
+  <Hero
+    variant="band"
+    headline="Right material. Right price. Right partner."
+    line="Materials, minerals and sourcing from India, from one verified partner."
+    image="Wide shot of the Jaipur yard with stone slabs"
+    animateStop
+  >
+    <a href="#components" class="t-button inline-flex min-h-12 items-center rounded-tag bg-ink px-6 text-paper no-underline">
+      Get a quote
+    </a>
+  </Hero>
+
+  <div data-vertical="stone">
+    <div class="bg-concrete pt-18 lg:pt-28" data-theme="light">
+      <div class="container-site">
+        <h2 class={sgHeading}>Hero: split<span class="text-accent">.</span></h2>
+        <p class={sgLead}>Vertical and service pages. Shown here with the Stone accent.</p>
+      </div>
+    </div>
+    <Hero
+      variant="split"
+      headline="Stone for every brief."
+      line="Six families of natural stone and engineered surfaces, checked slab by slab."
+      image="Stack of polished marble slabs"
+    >
+      <Button variant="accent" href="#components">Order samples</Button>
+      <Button variant="secondary" href="#components">See all stone</Button>
+    </Hero>
+  </div>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <SectionHeader
+        layout="split"
+        headline="Section header, split layout."
+        line="Headline left, supporting line and an optional button right. Use for longer introductions."
+        action={{ label: 'See services', href: '#components' }}
+      />
+      <SectionHeader
+        headline="Section header, stacked layout."
+        line="Headline over its line. The default."
+      />
+    </div>
+  </Section>
+
+  <Section surface="dark">
+    <div class="container-site">
+      <h2 class={sgHeading}>Proof bar<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Four figures, short labels. No counters or gradients. These figures are still to be confirmed.</p>
+      <ProofBar items={proof} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site">
+      <h2 class={sgHeading}>Cards<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Photo, title, one line. The title underlines on hover; cards never lift or cast shadows.</p>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-14 md:grid-cols-3">
+        <Card title="Build" vertical="build" href="#components" linkLabel="Explore Build" image="Blockwork going up on site" text="AAC blocks, mortar, plaster, tiles and surfaces, delivered to the drawing." />
+        <Card title="Minerals" vertical="minerals" href="#components" linkLabel="Explore Minerals" image="Talc powder, close detail" text="Talc and quicklime, graded and documented lot by lot." />
+        <Card title="Stone" vertical="stone" href="#components" linkLabel="Explore Stone" image="Polished granite slab edge" text="Six families of natural stone and engineered surfaces." />
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-14">
+      <div class="col-span-12 lg:col-span-5">
+        <h2 class={sgHeading}>Spec tag<span class="text-accent">.</span></h2>
+        <p class="measure text-ink-muted">
+          Built like a Procuro lot label: the vertical's colour strip with the product name and code, then the values
+          that matter. Used for talc grades, stones and Build materials.
+        </p>
+      </div>
+      <div class="col-span-12 grid gap-6 sm:grid-cols-2 lg:col-span-7">
+        <SpecTag
+          vertical="minerals"
+          name="Procuro Minerals"
+          code="PR-MN-T92"
+          rows={[
+            { label: 'Material', value: 'Procuro Talc P92' },
+            { label: 'Whiteness', value: '94.00' },
+            { label: 'Mesh', value: '400' },
+            { label: 'Certificate of analysis', value: 'Attached' },
+            { label: 'Status', value: 'Verified' },
+          ]}
+          caption="Example tag"
+        />
+        <SpecTag
+          vertical="stone"
+          name="Procuro Stone"
+          code="Granite"
+          rows={[
+            { label: 'Material', value: 'Absolute Black' },
+            { label: 'Forms', value: 'Slabs, tiles' },
+            { label: 'Finishes', value: 'Polished, honed' },
+            { label: 'Status', value: 'Verified' },
+          ]}
+          caption="Example tag"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site">
+      <h2 class={sgHeading}>Spec table<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Tabular figures, rules only inside the table. Scrolls sideways on narrow screens with the parameter column held in place.</p>
+      <SpecTable
+        caption="Full parameters"
+        columns={talcTable.columns}
+        rows={talcTable.rows}
+        note="0 to 1,000 mesh. 40 kg PP or 1 MT HDPE bags. Custom grades built to your formulation."
+      />
+    </div>
+  </Section>
+
+  <Section surface="dark">
+    <div class="container-site">
+      <h2 class={sgHeading}>Gallery and lightbox<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Stone page, black theme. Select a photo to open it full screen; use the arrow keys or the buttons to move between photos.</p>
+      <Gallery client:visible images={galleryImages} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-4">
+        <h2 class={sgHeading}>FAQ<span class="text-accent">.</span></h2>
+        <p class="measure text-ink-muted">
+          Accordion. Answers stay in the page so search engines and the browser's find can read them. Each FAQ block
+          also outputs FAQPage structured data.
+        </p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <Faq items={faqs} schema={false} />
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <h2 class={sgHeading}>Case study, quote, client logos<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Placeholders until the client supplies real case studies, a quote and logo permissions.</p>
+      <div class="grid gap-6 md:grid-cols-2">
+        <CaseStudyCard
+          vertical="build"
+          context="[TO CONFIRM: client type and city]"
+          title="[TO CONFIRM: case study title]"
+          problem="[TO CONFIRM: what the client needed and what was going wrong]"
+          action="[TO CONFIRM: what Procuro supplied or arranged]"
+          result="[TO CONFIRM: the measurable result]"
+        />
+        <CaseStudyCard
+          vertical="source"
+          context="[TO CONFIRM: international buyer, country]"
+          title="[TO CONFIRM: case study title]"
+          problem="[TO CONFIRM: what the buyer needed]"
+          action="[TO CONFIRM: how Procuro Source found and verified suppliers]"
+          result="[TO CONFIRM: the result]"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site flex flex-col gap-18 lg:gap-28">
+      <QuoteBlock quote="[TO CONFIRM: one client quote]" name="[TO CONFIRM: name]" role="[TO CONFIRM: role, company]" />
+      <LogoStrip logos={Array.from({ length: 6 }, () => ({ name: '[TO CONFIRM: client logo]' }))} />
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <h2 class={sgHeading}>Image placeholder<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Stands in for a photo until a real or licensed one is chosen. The label says what the photo should show.</p>
+      <div class="grid gap-6 md:grid-cols-3">
+        <div data-theme="light" class="bg-paper p-4"><ImagePlaceholder label="Landscape, 4 by 3" ratio="4 / 3" /></div>
+        <div data-theme="light" class="bg-paper p-4"><ImagePlaceholder label="Square" ratio="1 / 1" /></div>
+        <div data-theme="light" class="bg-paper p-4"><ImagePlaceholder label="Portrait, 3 by 4" ratio="3 / 4" /></div>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href="#components">Get a quote</Button>
+  </CtaBand>
+
+  <Section id="forms">
+    <div class="container-site grid-site gap-y-10" data-vertical="build">
+      <div class="col-span-12 lg:col-span-4">
+        <h2 class={sgHeading}>Enquiry form<span class="text-accent">.</span></h2>
+        <p class="measure text-ink-muted">
+          Labels above inputs. Submit it empty to see the inline errors, which say how to fix each problem. Shown with
+          the Build quote form. Nothing is sent yet; sending is wired in Stage 8.
+        </p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <EnquiryForm client:visible form={forms.quote} showTitle />
       </div>
     </div>
   </Section>

@@ -1,0 +1,27 @@
+---
+interface Item {
+  figure: string;
+  label: string;
+}
+interface Props {
+  items: Item[];
+  class?: string;
+}
+const { items, class: className } = Astro.props;
+---
+
+<dl class:list={['grid grid-cols-1 gap-x-6 gap-y-10 min-[520px]:grid-cols-2 lg:grid-cols-4', className]}>
+  {
+    items.map((item) => (
+      <div class="flex flex-col-reverse gap-3">
+        <dt class="t-small max-w-[22ch] text-ink-muted">{item.label}</dt>
+        <dd
+          class="text-[40px] leading-none font-bold tabular-nums md:text-[56px]"
+          style="font-stretch: 125%"
+        >
+          {item.figure}
+        </dd>
+      </div>
+    ))
+  }
+</dl>

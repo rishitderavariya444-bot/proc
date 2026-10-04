@@ -1,0 +1,54 @@
+---
+interface Props {
+  /** Column headings; the first labels the parameter column. */
+  columns: string[];
+  rows: string[][];
+  caption?: string;
+  note?: string;
+  class?: string;
+}
+const { columns, rows, caption, note, class: className } = Astro.props;
+---
+
+<figure class:list={['flex flex-col gap-4', className]}>
+  {caption && <figcaption class="t-h3">{caption}</figcaption>}
+  <div class="overflow-x-auto" tabindex="0" role="region" aria-label={caption ?? 'Specification table'}>
+    <table class="w-full min-w-[520px] border-collapse text-left">
+      <thead>
+        <tr class="border-b-2 border-ink">
+          {
+            columns.map((col, i) => (
+              <th
+                scope="col"
+                class:list={[
+                  't-small py-3 pr-6 font-semibold last:pr-0',
+                  i === 0 ? 'sticky left-0 bg-paper' : 'text-right',
+                ]}
+              >
+                {col}
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr class="border-b border-line">
+              {row.map((cell, i) =>
+                i === 0 ? (
+                  <th scope="row" class="t-small sticky left-0 bg-paper py-3 pr-6 font-normal text-ink-muted">
+                    {cell}
+                  </th>
+                ) : (
+                  <td class="t-spec py-3 pr-6 text-right last:pr-0">{cell}</td>
+                ),
+              )}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+  {note && <p class="t-small measure text-ink-muted">{note}</p>}
+</figure>

@@ -1,0 +1,45 @@
+---
+import type { Vertical } from '../data/site';
+
+interface Row {
+  label: string;
+  value: string;
+}
+interface Props {
+  vertical: Vertical;
+  /** Left of the header strip, e.g. "Procuro Minerals". */
+  name: string;
+  /** Right of the header strip, e.g. "PR-MN-T92". */
+  code: string;
+  rows: Row[];
+  /** Optional line under the tag, e.g. "Example tag". */
+  caption?: string;
+  href?: string;
+  class?: string;
+}
+const { vertical, name, code, rows, caption, href, class: className } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+
+<figure data-vertical={vertical} class:list={['flex flex-col gap-3', className]}>
+  <Tag
+    href={href}
+    class="block overflow-hidden rounded-tag border border-line bg-paper text-ink no-underline"
+  >
+    <div class="flex items-baseline justify-between gap-4 bg-accent px-4 py-3 text-on-accent">
+      <span class="text-[15px] leading-tight font-semibold">{name}</span>
+      <span class="t-spec text-[15px] font-semibold">{code}</span>
+    </div>
+    <dl class="divide-y divide-line px-4">
+      {
+        rows.map((row) => (
+          <div class="flex items-baseline justify-between gap-6 py-2.5">
+            <dt class="t-small text-ink-muted">{row.label}</dt>
+            <dd class="t-spec text-right">{row.value}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Tag>
+  {caption && <figcaption class="t-small text-ink-muted">{caption}</figcaption>}
+</figure>

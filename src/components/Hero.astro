@@ -1,0 +1,98 @@
+---
+import Headline from './Headline.astro';
+import ImagePlaceholder from './ImagePlaceholder.astro';
+
+interface Props {
+  headline: string;
+  line?: string;
+  /**
+   * "band": full-bleed photo with a black band holding the headline (home).
+   * "split": headline left, photo right (vertical and service pages).
+   * "text": headline only.
+   */
+  variant?: 'band' | 'split' | 'text';
+  /** Placeholder label for the photo until a real one exists. */
+  image?: string;
+  /** Home only: the headline's full stop fades in last. */
+  animateStop?: boolean;
+}
+
+const { headline, line, variant = 'split', image = 'Material photograph', animateStop = false } = Astro.props;
+---
+
+{
+  variant === 'band' && (
+    <section data-theme="dark" class="relative flex min-h-[640px] items-end bg-paper lg:min-h-[min(92vh,900px)]">
+      <div class="absolute inset-0">
+        <slot name="image">
+          <ImagePlaceholder label={image} class="!bg-concrete" />
+        </slot>
+      </div>
+      <div class="container-site relative pb-6 lg:pb-16">
+        <div class="max-w-[860px] bg-paper p-6 pt-8 text-ink sm:p-10 lg:p-14">
+          <Headline text={headline} as="h1" size="hero" stopClass={animateStop ? 'hero-stop' : undefined} />
+          <div class="mt-8 flex flex-col items-start gap-6 lg:mt-10 lg:flex-row lg:items-end lg:justify-between">
+            {line && <p class="measure text-ink-muted lg:max-w-[40ch]">{line}</p>}
+            <div class="flex shrink-0 flex-wrap gap-3">
+              <slot />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  variant === 'split' && (
+    <section class="bg-paper pt-12 pb-18 lg:pt-20 lg:pb-32">
+      <div class="container-site grid-site gap-y-10">
+        <div class="col-span-12 flex flex-col items-start justify-end gap-8 lg:col-span-6">
+          <Headline text={headline} as="h1" size="hero" class="max-w-[14ch]" />
+          {line && <p class="measure text-ink-muted">{line}</p>}
+          <div class="flex flex-wrap gap-3">
+            <slot />
+          </div>
+        </div>
+        <div class="col-span-12 lg:col-span-6">
+          <slot name="image">
+            <ImagePlaceholder label={image} ratio="4 / 3" />
+          </slot>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+{
+  variant === 'text' && (
+    <section class="bg-paper pt-12 pb-18 lg:pt-20 lg:pb-28">
+      <div class="container-site flex flex-col items-start gap-8">
+        <Headline text={headline} as="h1" size="h1" class="max-w-[20ch]" />
+        {line && <p class="measure text-ink-muted">{line}</p>}
+        <div class="flex flex-wrap gap-3">
+          <slot />
+        </div>
+      </div>
+    </section>
+  )
+}
+
+<style is:global>
+  @keyframes hero-stop-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  .hero-stop {
+    animation: hero-stop-in 300ms ease-out 500ms both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-stop {
+      animation: none;
+    }
+  }
+</style>

@@ -1,0 +1,20 @@
+---
+interface Props {
+  /** What the real photo should show. Rendered as the caption. */
+  label: string;
+  /** CSS aspect-ratio, e.g. "4 / 3". Omit to fill the parent. */
+  ratio?: string;
+  class?: string;
+}
+const { label, ratio, class: className } = Astro.props;
+---
+
+<div
+  role="img"
+  aria-label={`Photo to come: ${label}`}
+  class:list={['flex w-full items-end bg-concrete p-4 text-ink-muted', !ratio && 'h-full', className]}
+  style={ratio ? `aspect-ratio: ${ratio}` : undefined}
+  data-placeholder
+>
+  <span class="t-small max-w-[40ch]">Photo to come: {label}</span>
+</div>

@@ -37,11 +37,11 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 
 **Done when:** the styleguide looks right on phone and laptop.
 
-## Stage 2 — Shared components
-- [ ] Headline (accent full stop), hero, section header, proof bar, card, CTA band
-- [ ] Spec tag, spec table, gallery + lightbox, FAQ accordion (outputs FAQ JSON-LD)
-- [ ] Case-study card, quote block, logo strip, image placeholder
-- [ ] Enquiry form (UI only)
+## Stage 2 — Shared components ✅
+- [x] Headline (accent full stop), hero, section header, proof bar, card, CTA band
+- [x] Spec tag, spec table, gallery + lightbox, FAQ accordion (outputs FAQ JSON-LD)
+- [x] Case-study card, quote block, logo strip, image placeholder
+- [x] Enquiry form (UI only)
 
 **Done when:** every component appears on `/styleguide`.
 
@@ -100,3 +100,4 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 |---|---|---|
 | 2026-10-04 | 0 | Astro 7 + React, Tailwind 4, Base UI, Vercel adapter, sitemap, Archivo variable (wdth) installed. Logo SVGs traced from the PNGs with potrace into `src/assets/`. Placeholder home page shows logo and font. |
 | 2026-10-04 | 1 | Tokens (neutrals, four accents per theme, type scale, grid, spacing) in `src/styles/global.css`. Base layout with light/dark section themes, Header (Base UI navigation menu + full-screen dialog menu below 1280px), Footer, Button, WhatsApp button, Logo with accent full stop and lockups. `/styleguide` (noindex, out of sitemap) checked at 375px and 1440px. Build and Stone accent text on concrete measure 4.4:1, so use ink there for small text. |
+| 2026-10-04 | 2 | Headline, Hero (band, split, text), SectionHeader, ProofBar, Card, CtaBand, SpecTag, SpecTable, Gallery + lightbox, FAQ (accordion + FAQPage JSON-LD), CaseStudyCard, QuoteBlock, LogoStrip, ImagePlaceholder and EnquiryForm (all six forms defined in `src/data/forms.ts`, UI only) are on `/styleguide`. Clicked through FAQ, form validation, select, lightbox and keyboard arrows at 375px and 1440px. Note for Stage 3: Unsplash and Pexels are blocked from the build container, so photos need another route in. |

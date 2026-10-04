@@ -1,0 +1,26 @@
+---
+interface Logo {
+  name: string;
+  /** Path to the logo file. Omit to show a placeholder slot. */
+  src?: string;
+}
+interface Props {
+  logos: Logo[];
+  class?: string;
+}
+const { logos, class: className } = Astro.props;
+---
+
+<ul class:list={['grid grid-cols-2 gap-px bg-line sm:grid-cols-3 lg:grid-cols-6', className]}>
+  {
+    logos.map((logo) => (
+      <li class="flex h-28 items-center justify-center bg-paper px-6">
+        {logo.src ? (
+          <img src={logo.src} alt={logo.name} class="max-h-10 w-auto grayscale" loading="lazy" />
+        ) : (
+          <span class="t-small text-center text-ink-muted">{logo.name}</span>
+        )}
+      </li>
+    ))
+  }
+</ul>

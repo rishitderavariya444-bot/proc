@@ -1,0 +1,36 @@
+---
+import Headline from './Headline.astro';
+import Button from './Button.astro';
+
+interface Props {
+  headline: string;
+  line?: string;
+  /** Button text (uppercase is applied) and target. */
+  action?: { label: string; href: string; variant?: 'primary' | 'accent' | 'secondary' };
+  /** "stacked": headline over line. "split": headline left, line right. */
+  layout?: 'stacked' | 'split';
+  as?: 'h1' | 'h2';
+  class?: string;
+}
+const { headline, line, action, layout = 'stacked', as = 'h2', class: className } = Astro.props;
+---
+
+{
+  layout === 'split' ? (
+    <div class:list={['grid-site mb-12 gap-y-6 lg:mb-16', className]}>
+      <Headline text={headline} as={as} class="col-span-12 lg:col-span-6" />
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-5 lg:col-start-8 lg:pt-2">
+        {line && <p class="measure text-ink-muted">{line}</p>}
+        {action && <Button href={action.href} variant={action.variant ?? 'secondary'}>{action.label}</Button>}
+        <slot />
+      </div>
+    </div>
+  ) : (
+    <div class:list={['mb-12 flex flex-col items-start gap-5 lg:mb-16', className]}>
+      <Headline text={headline} as={as} class="max-w-[22ch]" />
+      {line && <p class="measure text-ink-muted">{line}</p>}
+      {action && <Button href={action.href} variant={action.variant ?? 'secondary'}>{action.label}</Button>}
+      <slot />
+    </div>
+  )
+}
