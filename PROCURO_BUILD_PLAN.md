@@ -29,11 +29,11 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 
 **Done when:** `npm run dev` shows a blank page with the logo and fonts loading.
 
-## Stage 1 — Design system
-- [ ] Tokens: neutrals, four accents (light/dark), type scale, spacing, grid
-- [ ] Base layout with light and dark section themes
-- [ ] Header (Base UI dropdown nav + mobile menu), footer, buttons, WhatsApp button
-- [ ] `/styleguide` page showing all of the above
+## Stage 1 — Design system ✅
+- [x] Tokens: neutrals, four accents (light/dark), type scale, spacing, grid
+- [x] Base layout with light and dark section themes
+- [x] Header (Base UI dropdown nav + mobile menu), footer, buttons, WhatsApp button
+- [x] `/styleguide` page showing all of the above
 
 **Done when:** the styleguide looks right on phone and laptop.
 
@@ -99,3 +99,4 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 | Date | Stage | Note |
 |---|---|---|
 | 2026-10-04 | 0 | Astro 7 + React, Tailwind 4, Base UI, Vercel adapter, sitemap, Archivo variable (wdth) installed. Logo SVGs traced from the PNGs with potrace into `src/assets/`. Placeholder home page shows logo and font. |
+| 2026-10-04 | 1 | Tokens (neutrals, four accents per theme, type scale, grid, spacing) in `src/styles/global.css`. Base layout with light/dark section themes, Header (Base UI navigation menu + full-screen dialog menu below 1280px), Footer, Button, WhatsApp button, Logo with accent full stop and lockups. `/styleguide` (noindex, out of sitemap) checked at 375px and 1440px. Build and Stone accent text on concrete measure 4.4:1, so use ink there for small text. |

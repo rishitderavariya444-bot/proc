@@ -1,0 +1,308 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Logo from '../components/Logo';
+import type { Vertical } from '../data/site';
+
+// Raw values, mirrored from src/styles/global.css, for labels and the
+// contrast check below.
+const neutrals = [
+  { token: 'paper', light: '#FFFFFF', dark: '#000000', use: 'Page background' },
+  { token: 'concrete', light: '#E8E9E5', dark: '#1C1D1B', use: 'Alternate sections, panels' },
+  { token: 'line', light: '#CFD1CC', dark: '#333532', use: 'Table rules, card edges' },
+  { token: 'line-strong', light: '#7E817C', dark: '#8A8D88', use: 'Input borders' },
+  { token: 'ink-muted', light: '#50534E', dark: '#B3B5B0', use: 'Captions, secondary text' },
+  { token: 'ink', light: '#000000', dark: '#FFFFFF', use: 'Text, primary buttons' },
+];
+
+const accents: {
+  vertical: Vertical;
+  name: string;
+  light: { fill: string; text: string; on: string };
+  dark: { fill: string; text: string; on: string };
+}[] = [
+  { vertical: 'source', name: 'Source', light: { fill: '#2F3E9E', text: '#2F3E9E', on: '#FFFFFF' }, dark: { fill: '#8391EA', text: '#8391EA', on: '#000000' } },
+  { vertical: 'build', name: 'Build', light: { fill: '#D9A21B', text: '#8A6410', on: '#000000' }, dark: { fill: '#E3B23C', text: '#E3B23C', on: '#000000' } },
+  { vertical: 'minerals', name: 'Minerals', light: { fill: '#1F6F6B', text: '#1F6F6B', on: '#FFFFFF' }, dark: { fill: '#4FB3AC', text: '#4FB3AC', on: '#000000' } },
+  { vertical: 'stone', name: 'Stone', light: { fill: '#A4553F', text: '#A4553F', on: '#FFFFFF' }, dark: { fill: '#DB8A6F', text: '#DB8A6F', on: '#000000' } },
+];
+
+function luminance(hex: string) {
+  const [r, g, b] = [1, 3, 5].map((i) => {
+    const c = parseInt(hex.slice(i, i + 2), 16) / 255;
+    return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+  });
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+function contrast(a: string, b: string) {
+  const [x, y] = [luminance(a), luminance(b)].sort((m, n) => n - m);
+  return (x + 0.05) / (y + 0.05);
+}
+const fmt = (n: number) => `${n.toFixed(1)}:1`;
+
+const typeScale = [
+  { cls: 't-hero', role: 'Hero headline', spec: 'Width 125, weight 700, clamp(48px, 7vw, 104px), line height 1.0', sample: 'Right material.' },
+  { cls: 't-h1', role: 'H1', spec: 'Width 125, weight 700, 64px desktop, 40px mobile, line height 1.05', sample: 'Stone for every brief.' },
+  { cls: 't-h2', role: 'H2', spec: 'Width 115, weight 650, 44px desktop, 30px mobile, line height 1.1', sample: 'What we supply.' },
+  { cls: 't-h3', role: 'H3', spec: 'Width 100, weight 600, 26px desktop, 22px mobile, line height 1.2', sample: 'Masonry and blockwork' },
+  { cls: 't-body', role: 'Body', spec: 'Width 100, weight 400, 18px desktop, 17px mobile, line height 1.55, at most 68 characters a line', sample: 'Procuro supplies construction materials, industrial minerals and stone, and runs managed sourcing for buyers who need verified Indian suppliers.' },
+  { cls: 't-small', role: 'Small, captions', spec: 'Width 100, weight 400, 15px desktop, 14px mobile, line height 1.45', sample: 'A caption sits below its image in small sentence case.' },
+  { cls: 't-button', role: 'Buttons, nav', spec: 'Width 100, weight 600, 15px, uppercase with 0.04em tracking', sample: 'Get a quote' },
+  { cls: 't-spec', role: 'Spec values', spec: 'Width 100, weight 500, 16px, line height 1.4, tabular numbers', sample: 'PR-MN-T92 0123456789' },
+];
+
+const sgHeading = 't-h2 mb-4';
+const sgLead = 'measure mb-12 text-ink-muted';
+---
+
+<Base title="Styleguide · Procuro India" noindex>
+  <Section>
+    <div class="container-site">
+      <h1 class="t-h1">Styleguide<span class="text-accent">.</span></h1>
+      <p class="measure mt-6 text-ink-muted">
+        The design system from <code>docs/DESIGN.md</code>, built as tokens and components. Not linked from the site
+        and hidden from search engines.
+      </p>
+      <ul class="t-small mt-8 flex flex-wrap gap-x-6 gap-y-2">
+        <li><a href="#colour" class="text-ink underline underline-offset-4">Colour</a></li>
+        <li><a href="#type" class="text-ink underline underline-offset-4">Typography</a></li>
+        <li><a href="#layout" class="text-ink underline underline-offset-4">Layout</a></li>
+        <li><a href="#themes" class="text-ink underline underline-offset-4">Section themes</a></li>
+        <li><a href="#buttons" class="text-ink underline underline-offset-4">Buttons</a></li>
+        <li><a href="#logo" class="text-ink underline underline-offset-4">Logo</a></li>
+        <li><a href="#chrome" class="text-ink underline underline-offset-4">Header, footer, WhatsApp</a></li>
+      </ul>
+    </div>
+  </Section>
+
+  <!-- Colour -->
+  <Section surface="concrete" id="colour">
+    <div class="container-site">
+      <h2 class={sgHeading}>Colour<span class="text-accent">.</span></h2>
+      <p class={sgLead}>Neutrals switch with the section theme. Black and white match the logo files exactly.</p>
+
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          (['light', 'dark'] as const).map((theme) => (
+            <div data-theme={theme} class="rounded-tag bg-paper p-6">
+              <p class="t-h3 mb-6">{theme === 'light' ? 'Light theme' : 'Dark theme'}</p>
+              <ul class="flex flex-col gap-3">
+                {neutrals.map((n) => (
+                  <li class="flex items-center gap-4">
+                    <span
+                      class="size-12 shrink-0 rounded-tag border border-line"
+                      style={`background: var(--${n.token})`}
+                    />
+                    <span class="t-small">
+                      <span class="block font-semibold">{n.token}</span>
+                      <span class="t-spec text-ink-muted">{theme === 'light' ? n.light : n.dark}</span>
+                      <span class="text-ink-muted">, {n.use}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+      </div>
+
+      <h3 class="t-h3 mt-20 mb-3">Vertical accents</h3>
+      <p class="measure mb-8 text-ink-muted">
+        One accent per page. Used on the headline full stop, links, vertical buttons, spec-tag header strips and the
+        lockup full stop. Never as a section background or behind body text. Ratios are WCAG contrast; 4.5:1 is the
+        floor for small text.
+      </p>
+      <div class="grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {
+          accents.map((a) => (
+            <div data-vertical={a.vertical} class="flex flex-col gap-4">
+              {(['light', 'dark'] as const).map((theme) => {
+                const v = a[theme];
+                const paper = theme === 'light' ? '#FFFFFF' : '#000000';
+                const concrete = theme === 'light' ? '#E8E9E5' : '#1C1D1B';
+                const onPaper = contrast(v.text, paper);
+                const onConcrete = contrast(v.text, concrete);
+                const onFill = contrast(v.on, v.fill);
+                return (
+                  <div data-theme={theme} class="overflow-hidden rounded-tag bg-paper">
+                    <div class="flex h-20 items-end bg-accent p-4 text-on-accent">
+                      <span class="t-h3">{a.name}</span>
+                    </div>
+                    <dl class="t-small grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 p-4">
+                      <dt class="text-ink-muted">Fill</dt>
+                      <dd class="t-spec">{v.fill}</dd>
+                      <dt class="text-ink-muted">Text</dt>
+                      <dd class="t-spec text-accent-text">{v.text}</dd>
+                      <dt class="text-ink-muted">Text on fill</dt>
+                      <dd class="t-spec">{fmt(onFill)}</dd>
+                      <dt class="text-ink-muted">Text on paper</dt>
+                      <dd class="t-spec">{fmt(onPaper)}{onPaper < 4.5 && ' (large text only)'}</dd>
+                      <dt class="text-ink-muted">Text on concrete</dt>
+                      <dd class="t-spec">{fmt(onConcrete)}{onConcrete < 4.5 && ' (use ink for small text)'}</dd>
+                    </dl>
+                  </div>
+                );
+              })}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Typography -->
+  <Section id="type">
+    <div class="container-site">
+      <h2 class={sgHeading}>Typography<span class="text-accent">.</span></h2>
+      <p class={sgLead}>One family, Archivo, with the width axis. Expanded for headlines, normal for everything else.</p>
+      <div class="flex flex-col gap-12">
+        {
+          typeScale.map((t) => (
+            <div class="grid-site gap-y-3">
+              <div class="t-small col-span-12 text-ink-muted lg:col-span-3">
+                <p class="font-semibold text-ink">{t.role}</p>
+                <p>{t.spec}</p>
+              </div>
+              <p class:list={[t.cls, 'col-span-12 lg:col-span-9', t.cls === 't-body' && 'measure']}>
+                {t.sample}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Layout -->
+  <Section surface="concrete" id="layout">
+    <div class="container-site">
+      <h2 class={sgHeading}>Layout<span class="text-accent">.</span></h2>
+      <p class={sgLead}>
+        12 columns, 1360px maximum content width, 24px gutters (16px on mobile), 64px page margins on desktop. 128px
+        between sections on desktop, 72px on mobile. Photos have square corners; buttons, inputs and spec tags have a
+        3px radius. No shadows.
+      </p>
+      <div class="grid-site" aria-hidden="true">
+        {Array.from({ length: 12 }, (_, i) => <div class="t-small flex h-24 items-end rounded-tag bg-paper p-2 text-ink-muted">{i + 1}</div>)}
+      </div>
+      <div class="grid-site mt-6 gap-y-6" aria-hidden="true">
+        <div class="t-small col-span-12 rounded-tag bg-paper p-4 md:col-span-8">8 columns</div>
+        <div class="t-small col-span-12 rounded-tag bg-paper p-4 md:col-span-4">4 columns</div>
+        <div class="t-small col-span-12 rounded-tag bg-paper p-4 md:col-span-6">6 columns</div>
+        <div class="t-small col-span-12 rounded-tag bg-paper p-4 md:col-span-6">6 columns</div>
+      </div>
+    </div>
+  </Section>
+
+  <!-- Section themes -->
+  <div id="themes">
+    {
+      (
+        [
+          ['paper', 'Paper', 'The default light surface.'],
+          ['concrete', 'Concrete', 'Alternate light surface, for panels and change of pace.'],
+          ['dark', 'Black', 'Dark theme. Used for the footer, the stone gallery and the home hero band.'],
+          ['dark-concrete', 'Dark concrete', 'Alternate dark surface.'],
+        ] as const
+      ).map(([surface, name, line]) => (
+        <Section surface={surface}>
+          <div class="container-site grid-site gap-y-6">
+            <div class="col-span-12 lg:col-span-6">
+              <h2 class="t-h2">{name}<span class="text-accent">.</span></h2>
+              <p class="measure mt-4 text-ink-muted">{line}</p>
+            </div>
+            <div class="col-span-12 flex flex-wrap items-end gap-3 lg:col-span-6 lg:justify-end">
+              <Button href="#themes">Get a quote</Button>
+              <Button href="#themes" variant="secondary">See services</Button>
+            </div>
+          </div>
+        </Section>
+      ))
+    }
+  </div>
+
+  <!-- Buttons -->
+  <Section id="buttons">
+    <div class="container-site">
+      <h2 class={sgHeading}>Buttons<span class="text-accent">.</span></h2>
+      <p class={sgLead}>
+        Text only, uppercase, starting with a verb. Primary is an ink fill; vertical pages use the accent fill.
+        Tab through them to see the focus ring.
+      </p>
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          (['light', 'dark'] as const).map((theme) => (
+            <div data-theme={theme} class="flex flex-col gap-8 rounded-tag bg-paper p-6 outline outline-1 outline-line">
+              <div class="flex flex-wrap gap-3">
+                <Button>Get a quote</Button>
+                <Button variant="secondary">See all products</Button>
+              </div>
+              {accents.map((a) => (
+                <div data-vertical={a.vertical} class="flex flex-wrap items-center gap-3">
+                  <Button variant="accent">
+                    {a.vertical === 'source' ? 'Send a brief' : a.vertical === 'build' ? 'Get a quote' : 'Request a sample'}
+                  </Button>
+                  <a href="#buttons" class="text-accent-text underline underline-offset-4">
+                    {a.name} link
+                  </a>
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Logo -->
+  <Section surface="concrete" id="logo">
+    <div class="container-site">
+      <h2 class={sgHeading}>Logo<span class="text-accent">.</span></h2>
+      <p class={sgLead}>
+        Traced from the supplied PNGs. Letters are always black or white; on vertical pages only the full stop takes the
+        accent. Clear space is the height of the letter O on every side.
+      </p>
+      <div class="grid gap-6 md:grid-cols-2">
+        <div data-theme="light" class="flex h-48 min-w-0 items-center rounded-tag bg-paper px-6 text-ink sm:px-10">
+          <Logo className="h-5 w-auto max-w-full sm:h-6" />
+        </div>
+        <div data-theme="dark" class="flex h-48 min-w-0 items-center rounded-tag bg-paper px-6 text-ink sm:px-10">
+          <Logo className="h-5 w-auto max-w-full sm:h-6" />
+        </div>
+        {
+          accents.map((a, i) => (
+            <div
+              data-theme={i % 2 ? 'dark' : 'light'}
+              data-vertical={a.vertical}
+              class="flex h-40 min-w-0 items-center rounded-tag bg-paper px-6 text-ink sm:px-10"
+            >
+              <Logo className="h-3.5 text-[17px] sm:h-5 sm:text-[24px]" lockup={a.name} accentStop />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <!-- Header, footer, WhatsApp -->
+  <Section id="chrome">
+    <div class="container-site">
+      <h2 class={sgHeading}>Header, footer, WhatsApp<span class="text-accent">.</span></h2>
+      <div class="measure flex flex-col gap-4">
+        <p>
+          The header at the top of this page is the live component: logo left, four dropdowns and Why Procuro, GET A
+          QUOTE on the right. It is sticky and gains a rule once the page scrolls. Below 1280px it collapses to a
+          full-screen menu.
+        </p>
+        <p>The footer below is the live component on the black theme.</p>
+        <p>
+          The WhatsApp button floats bottom-right on phones and tablets, with a pre-filled message for each page.
+          Elsewhere it appears inline:
+        </p>
+        <div><WhatsAppButton mode="inline" /></div>
+      </div>
+    </div>
+  </Section>
+</Base>

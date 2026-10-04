@@ -1,0 +1,36 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Variant = 'primary' | 'accent' | 'secondary';
+
+type Props = {
+  variant?: Variant;
+  href?: string;
+  class?: string;
+} & HTMLAttributes<'a'> &
+  HTMLAttributes<'button'>;
+
+const { variant = 'primary', href, class: className, ...rest } = Astro.props;
+
+// Text only, no icons or arrows (DESIGN.md).
+const base =
+  't-button inline-flex min-h-12 items-center justify-center rounded-tag px-6 text-center no-underline transition-colors select-none';
+const variants: Record<Variant, string> = {
+  primary: 'bg-ink text-paper hover:bg-ink/85',
+  accent: 'bg-accent text-on-accent hover:brightness-110',
+  secondary: 'border border-ink text-ink hover:bg-ink hover:text-paper',
+};
+const cls = [base, variants[variant], className].filter(Boolean).join(' ');
+---
+
+{
+  href ? (
+    <a href={href} class={cls} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type="button" class={cls} {...rest}>
+      <slot />
+    </button>
+  )
+}

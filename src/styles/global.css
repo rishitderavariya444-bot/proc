@@ -1,13 +1,268 @@
 @import '@fontsource-variable/archivo/wdth.css';
 @import 'tailwindcss';
 
-@theme {
-  --font-sans: 'Archivo Variable', system-ui, sans-serif;
+/* ------------------------------------------------------------------
+   Tokens (docs/DESIGN.md)
+   Themes are set with data-theme="light" | "dark" on <body> and on any
+   section that switches surface. The page's vertical is set with
+   data-vertical on <body>; a card can carry its own data-vertical.
+   ------------------------------------------------------------------ */
+
+[data-theme='light'] {
+  --paper: #ffffff;
+  --concrete: #e8e9e5;
+  --line: #cfd1cc;
+  --line-strong: #7e817c;
+  --ink-muted: #50534e;
+  --ink: #000000;
+
+  --source-fill: #2f3e9e;
+  --source-text: #2f3e9e;
+  --source-on: #ffffff;
+  --build-fill: #d9a21b;
+  --build-text: #8a6410;
+  --build-on: #000000;
+  --minerals-fill: #1f6f6b;
+  --minerals-text: #1f6f6b;
+  --minerals-on: #ffffff;
+  --stone-fill: #a4553f;
+  --stone-text: #a4553f;
+  --stone-on: #ffffff;
+
+  color-scheme: light;
 }
+
+[data-theme='dark'] {
+  --paper: #000000;
+  --concrete: #1c1d1b;
+  --line: #333532;
+  --line-strong: #8a8d88;
+  --ink-muted: #b3b5b0;
+  --ink: #ffffff;
+
+  --source-fill: #8391ea;
+  --source-text: #8391ea;
+  --source-on: #000000;
+  --build-fill: #e3b23c;
+  --build-text: #e3b23c;
+  --build-on: #000000;
+  --minerals-fill: #4fb3ac;
+  --minerals-text: #4fb3ac;
+  --minerals-on: #000000;
+  --stone-fill: #db8a6f;
+  --stone-text: #db8a6f;
+  --stone-on: #000000;
+
+  color-scheme: dark;
+}
+
+/* Default accent (master pages): ink. Re-declared on every themed
+   element so the value resolves against that element's theme. */
+[data-theme] {
+  --accent: var(--ink);
+  --accent-text: var(--ink);
+  --on-accent: var(--paper);
+  color: var(--ink);
+}
+
+[data-vertical='source'],
+[data-vertical='source'] [data-theme] {
+  --accent: var(--source-fill);
+  --accent-text: var(--source-text);
+  --on-accent: var(--source-on);
+}
+[data-vertical='build'],
+[data-vertical='build'] [data-theme] {
+  --accent: var(--build-fill);
+  --accent-text: var(--build-text);
+  --on-accent: var(--build-on);
+}
+[data-vertical='minerals'],
+[data-vertical='minerals'] [data-theme] {
+  --accent: var(--minerals-fill);
+  --accent-text: var(--minerals-text);
+  --on-accent: var(--minerals-on);
+}
+[data-vertical='stone'],
+[data-vertical='stone'] [data-theme] {
+  --accent: var(--stone-fill);
+  --accent-text: var(--stone-text);
+  --on-accent: var(--stone-on);
+}
+
+@theme inline {
+  --font-sans: 'Archivo Variable', system-ui, sans-serif;
+
+  --color-paper: var(--paper);
+  --color-concrete: var(--concrete);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink: var(--ink);
+  --color-accent: var(--accent);
+  --color-accent-text: var(--accent-text);
+  --color-on-accent: var(--on-accent);
+
+  --radius-tag: 3px;
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
 
 html {
   font-family: var(--font-sans);
   font-stretch: 100%;
-  background: #fff;
-  color: #000;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--paper);
+  font-size: 17px;
+  line-height: 1.55;
+  font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 18px;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+::selection {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Type scale
+   ------------------------------------------------------------------ */
+
+@utility t-hero {
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: clamp(48px, 7vw, 104px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+}
+
+@utility t-h1 {
+  font-stretch: 125%;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 1.05;
+  @media (min-width: 768px) {
+    font-size: 64px;
+  }
+}
+
+@utility t-h2 {
+  font-stretch: 115%;
+  font-weight: 650;
+  font-size: 30px;
+  line-height: 1.1;
+  @media (min-width: 768px) {
+    font-size: 44px;
+  }
+}
+
+@utility t-h3 {
+  font-stretch: 100%;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 1.2;
+  @media (min-width: 768px) {
+    font-size: 26px;
+  }
+}
+
+@utility t-body {
+  font-stretch: 100%;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.55;
+  @media (min-width: 768px) {
+    font-size: 18px;
+  }
+}
+
+@utility t-small {
+  font-stretch: 100%;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.45;
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+@utility t-button {
+  font-stretch: 100%;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+@utility t-spec {
+  font-stretch: 100%;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
+
+@utility measure {
+  max-width: 68ch;
+}
+
+/* ------------------------------------------------------------------
+   Layout: 12-column grid, 1360px content, 24px gutters (16px mobile),
+   64px page margins on desktop, 128px / 72px between sections.
+   ------------------------------------------------------------------ */
+
+@utility container-site {
+  width: 100%;
+  max-width: calc(1360px + 2 * 64px);
+  margin-inline: auto;
+  padding-inline: 16px;
+  @media (min-width: 768px) {
+    padding-inline: 32px;
+  }
+  @media (min-width: 1024px) {
+    padding-inline: 64px;
+  }
+}
+
+@utility grid-site {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: 16px;
+  @media (min-width: 768px) {
+    column-gap: 24px;
+  }
+}
+
+@utility section-y {
+  padding-block: 72px;
+  @media (min-width: 1024px) {
+    padding-block: 128px;
+  }
 }

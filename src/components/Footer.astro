@@ -1,0 +1,79 @@
+---
+import Logo from './Logo';
+import { mainNav, site, whatsappHref, whatsappMessages } from '../data/site';
+
+interface Props {
+  whatsappMessage?: string;
+}
+const { whatsappMessage = whatsappMessages.default } = Astro.props;
+
+const columns = mainNav.filter((g) => g.links);
+const whyProcuro = mainNav.find((g) => g.label === 'Why Procuro');
+const linkCls = 'text-ink no-underline hover:underline underline-offset-4';
+---
+
+<footer data-theme="dark" class="bg-paper text-ink">
+  <div class="container-site pt-18 pb-10 lg:pt-28">
+    <div class="grid-site gap-y-14">
+      <div class="col-span-12 lg:col-span-4">
+        <a href="/" aria-label="Procuro India, home" class="inline-block text-ink">
+          <Logo className="h-4 w-auto" />
+        </a>
+        <p class="t-h3 mt-8 max-w-[18ch]" style="font-stretch: 115%">{site.tagline}</p>
+      </div>
+
+      <nav aria-label="Footer" class="col-span-12 grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-4 lg:col-span-8">
+        {
+          columns.map((group) => (
+            <div>
+              <p class="t-small mb-4 text-ink-muted">{group.label}</p>
+              <ul class="t-small flex flex-col gap-2.5">
+                {group.links!.map((link) => (
+                  <li>
+                    <a href={link.href} class={linkCls}>{link.label}</a>
+                  </li>
+                ))}
+                {group.label === 'Company' && whyProcuro?.href && (
+                  <li>
+                    <a href={whyProcuro.href} class={linkCls}>{whyProcuro.label}</a>
+                  </li>
+                )}
+              </ul>
+            </div>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="grid-site mt-16 gap-y-10 lg:mt-24">
+      {
+        site.offices.map((office) => (
+          <div class="col-span-12 sm:col-span-6 lg:col-span-4">
+            <p class="t-small mb-2 text-ink-muted">{office.city}</p>
+            <address class="t-small max-w-[34ch] not-italic">{office.short}</address>
+          </div>
+        ))
+      }
+      <div class="col-span-12 lg:col-span-4">
+        <p class="t-small mb-2 text-ink-muted">Contact</p>
+        <ul class="t-small flex flex-col gap-1.5">
+          <li><a href={`mailto:${site.email}`} class={linkCls}>{site.email}</a></li>
+          <li><a href={site.phoneHref} class={linkCls}>{site.phone}</a></li>
+          <li>
+            <a href={whatsappHref(whatsappMessage)} target="_blank" rel="noopener" class={linkCls}>
+              WhatsApp<span class="sr-only"> (opens in a new tab)</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="t-small mt-16 flex flex-col gap-4 pt-8 text-ink-muted shadow-[0_-1px_0_var(--line)] sm:flex-row sm:items-center sm:justify-between lg:mt-24">
+      <p>{site.legalLine}</p>
+      <ul class="flex gap-6">
+        <li><a href="/privacy" class="text-ink-muted no-underline hover:text-ink hover:underline underline-offset-4">Privacy</a></li>
+        <li><a href="/terms" class="text-ink-muted no-underline hover:text-ink hover:underline underline-offset-4">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>

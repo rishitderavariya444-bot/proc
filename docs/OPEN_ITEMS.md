@@ -15,6 +15,7 @@ Facts and access still needed from the client. Until each arrives, show a visibl
 | [ ] Team: names, roles, photos | Company | Stage 7 |
 | [ ] Mineral spec sheet PDFs | Minerals | Stage 4 |
 | [ ] Real photos (yard, stock, slabs, deliveries, office, team) to replace stock | Everywhere | Before launch |
+| [ ] LinkedIn company page URL (old footer listed LinkedIn; left out until we have the link) | Footer | Stage 8 |
 | [ ] Logo as vector (SVG/AI/PDF) if the original designer has it | Header, footer | Stage 0 (otherwise rebuild from PNG) |
 
 ## Decisions to confirm

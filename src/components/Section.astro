@@ -1,0 +1,21 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+
+type Surface = 'paper' | 'concrete' | 'dark' | 'dark-concrete';
+
+type Props = {
+  surface?: Surface;
+  /** Remove the standard vertical rhythm (e.g. full-bleed heroes). */
+  flush?: boolean;
+  as?: 'section' | 'div' | 'footer';
+  class?: string;
+} & HTMLAttributes<'section'>;
+
+const { surface = 'paper', flush = false, as: Tag = 'section', class: className, ...rest } = Astro.props;
+const theme = surface.startsWith('dark') ? 'dark' : 'light';
+const bg = surface.endsWith('concrete') ? 'bg-concrete' : 'bg-paper';
+---
+
+<Tag data-theme={theme} class:list={[bg, 'text-ink', !flush && 'section-y', className]} {...rest}>
+  <slot />
+</Tag>
