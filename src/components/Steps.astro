@@ -1,0 +1,27 @@
+---
+// Numbered only because it's a real sequence (DESIGN.md).
+interface Step {
+  title?: string;
+  text: string;
+}
+interface Props {
+  steps: Step[];
+  class?: string;
+}
+const { steps, class: className } = Astro.props;
+---
+
+<ol class:list={['grid gap-x-6 gap-y-10 sm:grid-cols-2', steps.length > 4 ? 'lg:grid-cols-5' : 'lg:grid-cols-4', className]}>
+  {
+    steps.map((step, i) => (
+      <li class="flex flex-col gap-3 border-t-2 border-ink pt-5">
+        <span class="t-spec text-[15px] font-semibold text-accent-text" aria-hidden="true">
+          {String(i + 1).padStart(2, '0')}
+        </span>
+        <span class="sr-only">Step {i + 1}: </span>
+        {step.title && <p class="t-h3">{step.title}</p>}
+        <p class:list={['t-small measure', step.title ? 'text-ink-muted' : 'text-ink text-[17px] md:text-[18px]']}>{step.text}</p>
+      </li>
+    ))
+  }
+</ol>

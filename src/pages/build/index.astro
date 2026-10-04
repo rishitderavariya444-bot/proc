@@ -1,0 +1,140 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import ProofBar from '../../components/ProofBar.astro';
+import Steps from '../../components/Steps.astro';
+import Faq from '../../components/Faq.astro';
+import EnquiryForm from '../../components/EnquiryForm';
+import { buildGroups, buildMaterials, buildProof, buildAudiences, buildSteps, buildFaqs } from '../../data/build';
+import { forms } from '../../data/forms';
+import { whatsappMessages } from '../../data/site';
+
+const slugFor = (name: string) => buildMaterials.find((m) => m.name === name)!.slug;
+---
+
+<Base
+  title="Procuro Build · AAC blocks, mortar, tiles and surfaces"
+  description="AAC blocks, mortar, plaster, tiles and surfaces for developers and contractors in Mumbai, Pune and Ahmedabad, with a quality report on every delivery."
+  vertical="build"
+>
+  <Hero
+    variant="split"
+    headline="On spec. On site. On time."
+    line="Construction materials for live sites, matched to the drawing."
+    image="A live site, blockwork going up"
+  >
+    <Button href="#quote" variant="accent">Request a quote</Button>
+    <WhatsAppButton mode="inline" message={whatsappMessages.build} />
+  </Hero>
+
+  <Section surface="dark" class="!py-18 lg:!py-24">
+    <div class="container-site">
+      <h2 class="sr-only">Procuro Build in numbers</h2>
+      <ProofBar items={buildProof} />
+    </div>
+  </Section>
+
+  <Section id="supply">
+    <div class="container-site">
+      <Headline text="What we supply." class="mb-12 lg:mb-16" />
+      <div class="flex flex-col gap-16 lg:gap-20">
+        {
+          buildGroups.map((group) => (
+            <div id={group.id} class="grid-site gap-y-6 border-t-2 border-ink pt-8">
+              <div class="col-span-12 lg:col-span-5">
+                <h3 class="t-h3">{group.name}</h3>
+                <p class="mt-2 text-ink-muted">{group.lead}</p>
+              </div>
+              <div class="col-span-12 flex flex-col gap-6 lg:col-span-7">
+                <p class="measure">{group.body}</p>
+                <ul class="grid gap-x-6 sm:grid-cols-2">
+                  {group.materials.map((name) => (
+                    <li class="border-b border-line">
+                      <a
+                        href={`/build/${slugFor(name)}`}
+                        class="flex items-center justify-between gap-4 py-3 text-ink no-underline hover:underline underline-offset-4"
+                      >
+                        {name}
+                      </a>
+                    </li>
+                  ))}
+                  {group.extraLinks?.map((link) => (
+                    <li class="border-b border-line" data-vertical="stone">
+                      <a href={link.href} class="flex py-3 text-ink no-underline hover:underline underline-offset-4">
+                        {link.label}
+                        <span class="text-accent">.</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="Built for site teams." class="col-span-12 lg:col-span-5" />
+      <div class="col-span-12 flex flex-col gap-8 lg:col-span-7">
+        <dl class="grid gap-x-6 gap-y-8 sm:grid-cols-2">
+          {
+            buildAudiences.map((a) => (
+              <div class="border-t border-line-strong pt-5">
+                <dt class="t-h3">{a.title}</dt>
+                <dd class="t-small mt-2 text-ink-muted">{a.text}</dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="t-small text-ink-muted">We supply sites across Mumbai and MMR, Pune and Ahmedabad.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site">
+      <Headline text="From spec to site." class="mb-12 lg:mb-16" />
+      <Steps steps={buildSteps} />
+    </div>
+  </Section>
+
+  <Section surface="dark">
+    <div class="container-site grid-site gap-y-6">
+      <Headline text="The same rules, every delivery." size="h1" class="col-span-12 lg:col-span-7" />
+      <p class="measure col-span-12 text-ink-muted lg:col-span-5 lg:pt-3">
+        A quality report travels with every load. Brands are named when you specify them. Otherwise we supply from a
+        short roster of ISI-certified makers.
+      </p>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="Questions." class="col-span-12 lg:col-span-4" />
+      <div class="col-span-12 lg:col-span-8">
+        <Faq items={buildFaqs} />
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete" id="quote">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-4">
+        <Headline text="Request a quote." />
+        <p class="measure mt-5 text-ink-muted">We reply the same day with plant, sample, lead time and a trial-load size.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <div data-theme="light" class="bg-paper p-6 lg:p-10">
+          <EnquiryForm client:visible form={forms.quote} />
+        </div>
+      </div>
+    </div>
+  </Section>
+</Base>

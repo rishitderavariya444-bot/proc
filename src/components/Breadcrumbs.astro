@@ -1,0 +1,40 @@
+---
+import { site } from '../data/site';
+
+interface Crumb {
+  label: string;
+  href: string;
+}
+interface Props {
+  /** Ancestors only; the current page is added from `current`. */
+  items: Crumb[];
+  current: string;
+}
+const { items, current } = Astro.props;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [...items, { label: current, href: Astro.url.pathname }].map((c, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: c.label,
+    item: new URL(c.href, site.url).toString(),
+  })),
+};
+---
+
+<nav aria-label="Breadcrumb" class="container-site pt-8 lg:pt-10">
+  <ol class="t-small flex flex-wrap gap-x-2 gap-y-1 text-ink-muted">
+    {
+      items.map((item) => (
+        <li class="flex gap-2">
+          <a href={item.href} class="text-ink-muted underline underline-offset-4 hover:text-ink">{item.label}</a>
+          <span aria-hidden="true">/</span>
+        </li>
+      ))
+    }
+    <li aria-current="page" class="text-ink">{current}</li>
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

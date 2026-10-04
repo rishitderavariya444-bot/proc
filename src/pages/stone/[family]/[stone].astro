@@ -1,0 +1,83 @@
+---
+import ProductPage from '../../../layouts/ProductPage.astro';
+import Section from '../../../components/Section.astro';
+import SpecTag from '../../../components/SpecTag.astro';
+import { stones, stoneForms, stoneFinishes, stoneTitle, type Stone } from '../../../data/stone';
+
+export function getStaticPaths() {
+  return stones.map((stone) => ({ params: { family: stone.family.slug, stone: stone.slug }, props: { stone } }));
+}
+
+const { stone } = Astro.props as { stone: Stone };
+const name = stoneTitle(stone);
+const family = stone.family;
+const related = stones.filter((s) => s.family === family && s !== stone).slice(0, 6);
+---
+
+<ProductPage
+  vertical="stone"
+  title={`${name} · Procuro Stone`}
+  description={`${name}, a natural ${family.name.toLowerCase()} from Procuro Stone, in slabs, tiles, pavers and blocks. Free samples; installation anywhere in India.`}
+  name={name}
+  line={`Natural ${family.name.toLowerCase()} in blocks, slabs, tiles and pavers, cut and finished to your brief.`}
+  crumbs={[
+    { label: 'Products', href: '/products' },
+    { label: 'Stone', href: '/stone' },
+    { label: family.name, href: `/stone/${family.slug}` },
+  ]}
+  image={`${name}, slab detail`}
+  cta={{ label: 'Order samples', href: '/stone#samples' }}
+>
+  <SpecTag
+    slot="spec"
+    vertical="stone"
+    name="Procuro Stone"
+    code={family.name}
+    rows={[
+      { label: 'Material', value: name },
+      ...(stone.origin ? [{ label: 'Origin', value: stone.origin }] : []),
+      { label: 'Forms', value: stoneForms.join(', ') },
+      { label: 'Samples', value: 'Free; you pay delivery' },
+      { label: 'Installation', value: 'Anywhere in India' },
+    ]}
+  />
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-8">
+      <div class="col-span-12 lg:col-span-4">
+        <h2 class="t-h2">Forms and finishes<span class="text-accent">.</span></h2>
+        <p class="measure mt-5 text-ink-muted">Finishing on request, including CNC-carved patterns.</p>
+      </div>
+      <div class="col-span-12 sm:col-span-4 lg:col-span-3">
+        <h3 class="t-small mb-3 font-semibold">Forms</h3>
+        <ul class="flex flex-col gap-1">{stoneForms.map((f) => <li>{f}</li>)}</ul>
+      </div>
+      <div class="col-span-12 sm:col-span-8 lg:col-span-5">
+        <h3 class="t-small mb-3 font-semibold">Finishes</h3>
+        <ul class="grid grid-cols-2 gap-x-6 gap-y-1">{stoneFinishes.map((f) => <li>{f}</li>)}</ul>
+      </div>
+    </div>
+  </Section>
+
+  {
+    related.length > 0 && (
+      <Section>
+        <div class="container-site">
+          <h2 class="t-h2 mb-10">More {family.plural}<span class="text-accent">.</span></h2>
+          <ul class="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((s) => (
+              <li class="border-b border-line">
+                <a href={`/stone/${family.slug}/${s.slug}`} class="block py-4 text-ink no-underline hover:underline underline-offset-4">
+                  {stoneTitle(s)}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href={`/stone/${family.slug}`} class="t-small mt-8 inline-block font-semibold text-accent-text underline underline-offset-4">
+            See all {family.stones.length} {family.plural}
+          </a>
+        </div>
+      </Section>
+    )
+  }
+</ProductPage>

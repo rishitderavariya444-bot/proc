@@ -14,10 +14,6 @@ export interface Stub {
 }
 
 export const stubs: Stub[] = [
-  { path: 'products', title: 'Products', headline: 'What we supply.', line: 'Three lines, one standard of checking.', stage: 4 },
-  { path: 'build', title: 'Procuro Build', headline: 'On spec. On site. On time.', line: 'Construction materials for live sites, matched to the drawing.', vertical: 'build', stage: 4 },
-  { path: 'minerals', title: 'Procuro Minerals', headline: 'Graded to the mesh.', line: 'Talc and quicklime supplied against your specification.', vertical: 'minerals', stage: 4 },
-  { path: 'stone', title: 'Procuro Stone', headline: 'Chosen slab by slab.', line: 'Natural and engineered stone, seen before you commit.', vertical: 'stone', stage: 4 },
   { path: 'services', title: 'Services', headline: 'How we deliver.', line: 'Procuro Source, quality control, and logistics and export.', stage: 5 },
   { path: 'source', title: 'Procuro Source', headline: 'Your procurement team in India.', line: 'We find, verify and manage suppliers. You decide.', vertical: 'source', stage: 5 },
   { path: 'services/quality-control', title: 'Quality control', headline: 'Verified means checked.', line: 'Every supplier and every order, inspected to spec.', stage: 5 },

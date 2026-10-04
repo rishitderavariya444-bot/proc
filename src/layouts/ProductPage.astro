@@ -1,0 +1,56 @@
+---
+// Template for generated product pages (concise-copy.md "Product page"):
+// [Product name]. · one line on use · specs · forms and finishes · related.
+import Base from './Base.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Headline from '../components/Headline.astro';
+import Button from '../components/Button.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { whatsappMessages, type Vertical } from '../data/site';
+
+interface Props {
+  vertical: Vertical;
+  /** <title>, e.g. "Absolute Black · Procuro Stone". */
+  title: string;
+  description: string;
+  name: string;
+  line: string;
+  crumbs: { label: string; href: string }[];
+  image: string;
+  cta: { label: string; href: string };
+}
+
+const { vertical, title, description, name, line, crumbs, image, cta } = Astro.props;
+const message = whatsappMessages.product(name);
+---
+
+<Base title={title} description={description} vertical={vertical} whatsappMessage={message}>
+  <Breadcrumbs items={crumbs} current={name} />
+
+  <section class="bg-paper pt-8 pb-18 lg:pt-12 lg:pb-28">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-6">
+        <Headline text={`${name}.`} as="h1" size="h1" />
+        <p class="measure text-ink-muted">{line}</p>
+        <div class="flex flex-wrap gap-3">
+          <Button href={cta.href} variant="accent">{cta.label}</Button>
+          <WhatsAppButton mode="inline" message={message} />
+        </div>
+        <div class="mt-4 w-full">
+          <slot name="spec" />
+        </div>
+      </div>
+      <div class="col-span-12 lg:col-span-5 lg:col-start-8">
+        <ImagePlaceholder label={image} ratio="4 / 5" />
+      </div>
+    </div>
+  </section>
+
+  <slot />
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href={cta.href}>{cta.label}</Button>
+  </CtaBand>
+</Base>

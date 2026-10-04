@@ -1,0 +1,74 @@
+---
+import ProductPage from '../../layouts/ProductPage.astro';
+import Section from '../../components/Section.astro';
+import SpecTag from '../../components/SpecTag.astro';
+import { buildMaterials, type BuildMaterial } from '../../data/build';
+
+export function getStaticPaths() {
+  return buildMaterials.map((material) => ({ params: { material: material.slug }, props: { material } }));
+}
+
+const { material } = Astro.props as { material: BuildMaterial };
+const related = buildMaterials.filter((m) => m.group === material.group && m !== material);
+const line = material.volumeLine
+  ? `One of our volume lines. ${material.group.materialLine}`
+  : material.group.materialLine;
+---
+
+<ProductPage
+  vertical="build"
+  title={`${material.name} · Procuro Build`}
+  description={`${material.name} from Procuro Build. ${material.group.materialLine}`}
+  name={material.name}
+  line={line}
+  crumbs={[
+    { label: 'Products', href: '/products' },
+    { label: 'Build', href: '/build' },
+  ]}
+  image={`${material.name}, on site or in stock`}
+  cta={{ label: 'Request a quote', href: '/build#quote' }}
+>
+  <SpecTag
+    slot="spec"
+    vertical="build"
+    name="Procuro Build"
+    code={material.group.name}
+    rows={[
+      { label: 'Material', value: material.name },
+      { label: 'Brand', value: 'As specified, or an ISI-certified maker' },
+      { label: 'Documents', value: 'Quality report with every load' },
+      { label: 'Specification', value: '[TO CONFIRM]' },
+    ]}
+  />
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-5">
+        <h2 class="t-h2">How we supply it<span class="text-accent">.</span></h2>
+      </div>
+      <ul class="col-span-12 flex flex-col lg:col-span-7">
+        <li class="border-t border-line-strong py-5">The brand your specification names. If none is named, we supply to spec from a short roster of ISI-certified makers.</li>
+        <li class="border-t border-line-strong py-5">A quality report travels with every load.</li>
+        <li class="border-t border-line-strong py-5">We supply sites across Mumbai and MMR, Pune and Ahmedabad.</li>
+        <li class="border-y border-line-strong py-5">We reply the same day with plant, sample, lead time and a trial-load size.</li>
+      </ul>
+    </div>
+  </Section>
+
+  {
+    related.length > 0 && (
+      <Section>
+        <div class="container-site">
+          <h2 class="t-h2 mb-10">Also in {material.group.name.toLowerCase()}<span class="text-accent">.</span></h2>
+          <ul class="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+            {related.map((m) => (
+              <li class="border-b border-line">
+                <a href={`/build/${m.slug}`} class="block py-4 text-ink no-underline hover:underline underline-offset-4">{m.name}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    )
+  }
+</ProductPage>

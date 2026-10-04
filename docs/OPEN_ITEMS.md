@@ -14,6 +14,9 @@ Facts and access still needed from the client. Until each arrives, show a visibl
 | [ ] Registrations: GST, IEC, CIN, Udyam, ISO or others | Certifications, Home | Stage 7 |
 | [ ] Team: names, roles, photos | Company | Stage 7 |
 | [ ] Mineral spec sheet PDFs | Minerals | Stage 4 |
+| [ ] Build: a specification and a one-line use for each of the 15 materials (AAC blocks, mortar, tiles and so on). Pages show `[TO CONFIRM]` for now | `/build/[material]` | Stage 4 |
+| [ ] Quicklime CaO value (and the two CaO grades the FAQ mentions) | Minerals, quicklime pages | Stage 4 |
+| [ ] Stone origins, only where confirmed per stone | `/stone/[family]/[stone]` | Stage 4 |
 | [ ] Real photos (yard, stock, slabs, deliveries, office, team) to replace stock | Everywhere | Before launch |
 | [ ] LinkedIn company page URL (old footer listed LinkedIn; left out until we have the link) | Footer | Stage 8 |
 | [ ] Logo as vector (SVG/AI/PDF) if the original designer has it | Header, footer | Stage 0 (otherwise rebuild from PNG) |
@@ -21,7 +24,7 @@ Facts and access still needed from the client. Until each arrives, show a visibl
 ## Decisions to confirm
 | Question | Context |
 |---|---|
-| [ ] Talc P92 tier is labelled "PREMIUM" in the old content file, but "premium" is on the banned-words list. Keep it as a product tier label, or rename it? | Minerals |
+| [ ] Talc P92 tier is labelled "PREMIUM" in the old content file, but "premium" is on the banned-words list. Keep it as a product tier label, or rename it? Tier labels (Premium, Industrial, Economy) are left off the site until this is decided. | Minerals |
 | [ ] The old colour notes describe Build as cement, steel, aggregates and sand, but the content rules forbid listing cement, steel or sand. Following the content rules unless told otherwise. | Build |
 
 ## Access (Stages 8–10)

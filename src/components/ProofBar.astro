@@ -8,15 +8,17 @@ interface Props {
   class?: string;
 }
 const { items, class: className } = Astro.props;
+// Long figures (e.g. "1,000–1,500 m³") step down a size so they stay on one line.
+const long = items.some((i) => i.figure.length > 9);
 ---
 
-<dl class:list={['grid grid-cols-1 gap-x-6 gap-y-10 min-[520px]:grid-cols-2 lg:grid-cols-4', className]}>
+<dl class:list={['grid grid-cols-1 gap-x-6 gap-y-10 min-[520px]:grid-cols-2', items.length > 4 ? 'lg:grid-cols-3 2xl:grid-cols-5' : 'lg:grid-cols-4', className]}>
   {
     items.map((item) => (
       <div class="flex flex-col-reverse gap-3">
         <dt class="t-small max-w-[22ch] text-ink-muted">{item.label}</dt>
         <dd
-          class="text-[40px] leading-none font-bold tabular-nums md:text-[56px]"
+          class:list={['leading-none font-bold tabular-nums', long ? 'text-[34px] md:text-[38px] xl:text-[44px]' : 'text-[40px] md:text-[44px] xl:text-[52px]']}
           style="font-stretch: 125%"
         >
           {item.figure}

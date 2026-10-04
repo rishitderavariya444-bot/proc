@@ -1,0 +1,166 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import ProofBar from '../../components/ProofBar.astro';
+import SpecTag from '../../components/SpecTag.astro';
+import SpecTable from '../../components/SpecTable.astro';
+import Steps from '../../components/Steps.astro';
+import Faq from '../../components/Faq.astro';
+import EnquiryForm from '../../components/EnquiryForm';
+import {
+  talcGrades,
+  talcParameters,
+  talcNote,
+  quicklime,
+  quicklimeForms,
+  mineralsProof,
+  mineralsAudiences,
+  mineralsSteps,
+  mineralsFaqs,
+} from '../../data/minerals';
+import { forms } from '../../data/forms';
+import { whatsappMessages } from '../../data/site';
+---
+
+<Base
+  title="Procuro Minerals · Talc powder and quicklime"
+  description="Soapstone (talc) powder in three grades and quicklime from Nagaur limestone, with a certificate of analysis on every lot. Free samples."
+  vertical="minerals"
+>
+  <Hero
+    variant="split"
+    headline="Graded to the mesh."
+    line="Talc and quicklime supplied against your specification."
+    image="Talc powder, close up"
+  >
+    <Button href="#sample" variant="accent">Request a sample</Button>
+    <WhatsAppButton mode="inline" message={whatsappMessages.minerals} />
+  </Hero>
+
+  <Section surface="dark" class="!py-18 lg:!py-24">
+    <div class="container-site">
+      <h2 class="sr-only">Procuro Minerals in numbers</h2>
+      <ProofBar items={mineralsProof} />
+    </div>
+  </Section>
+
+  <Section id="talc">
+    <div class="container-site">
+      <div class="grid-site mb-12 gap-y-6 lg:mb-16">
+        <div class="col-span-12 lg:col-span-6">
+          <p class="t-h3 mb-4">Procuro talc series</p>
+          <Headline text="Consistent input. Consistent output." />
+        </div>
+        <p class="measure col-span-12 text-ink-muted lg:col-span-5 lg:col-start-8 lg:pt-12">
+          Soapstone powder for emulsions, putties, primers and industrial coatings, supplied against your approved
+          specification.
+        </p>
+      </div>
+
+      <div class="grid gap-6 md:grid-cols-3">
+        {
+          talcGrades.map((g) => (
+            <div class="flex flex-col gap-4">
+              <SpecTag
+                vertical="minerals"
+                name={g.name}
+                code={g.code}
+                href={`/minerals/talc/${g.slug}`}
+                rows={[{ label: 'Use', value: g.use }, ...g.keyValues]}
+              />
+              <p class="t-small text-ink-muted">{g.note}</p>
+              <a href={`/minerals/talc/${g.slug}`} class="t-small font-semibold text-accent-text underline underline-offset-4">
+                See {g.grade} in full
+              </a>
+            </div>
+          ))
+        }
+      </div>
+
+      <SpecTable
+        class="mt-16 lg:mt-24"
+        caption="Full parameters"
+        columns={['Parameter', ...talcGrades.map((g) => g.grade)]}
+        rows={talcParameters}
+        note={talcNote}
+      />
+      <p class="t-small mt-4 text-ink-muted">Spec sheet download: [TO CONFIRM: spec sheet PDF]</p>
+    </div>
+  </Section>
+
+  <Section surface="concrete" id="quicklime">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-5 lg:col-span-5">
+        <p class="t-h3">Quicklime</p>
+        <Headline text="Quicklime, documented lot by lot." />
+        <p class="measure text-ink-muted">{quicklime.body}</p>
+        <p class="measure font-semibold">{quicklime.note}</p>
+      </div>
+      <div class="col-span-12 flex flex-col gap-8 lg:col-span-6 lg:col-start-7">
+        <div data-theme="light" class="bg-paper p-6">
+          <SpecTable columns={['Parameter', 'Value']} rows={quicklime.chemistry} />
+        </div>
+        <div class="grid gap-6 sm:grid-cols-2">
+          {
+            quicklimeForms.map((f) => (
+              <a href={`/minerals/quicklime/${f.slug}`} class="group flex flex-col gap-2 border-t-2 border-ink pt-4 text-ink no-underline">
+                <span class="t-h3 underline-offset-4 group-hover:underline">{f.name}</span>
+                <span class="t-small text-ink-muted">{f.sizes.join(', ')}</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="For manufacturers who work to spec." class="col-span-12 lg:col-span-5" />
+      <dl class="col-span-12 grid gap-x-6 gap-y-8 sm:grid-cols-3 lg:col-span-7">
+        {
+          mineralsAudiences.map((a) => (
+            <div class="border-t border-line-strong pt-5">
+              <dt class="t-h3">{a.title}</dt>
+              <dd class="t-small mt-2 text-ink-muted">{a.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <Headline text="Sample first. Then supply." class="mb-12 lg:mb-16" />
+      <Steps steps={mineralsSteps} />
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="Questions." class="col-span-12 lg:col-span-4" />
+      <div class="col-span-12 lg:col-span-8">
+        <Faq items={mineralsFaqs} />
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete" id="sample">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-4">
+        <Headline text="Request a sample." />
+        <p class="measure mt-5 text-ink-muted">Samples are free; you pay only for delivery. We'll be in touch within one working day.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <div data-theme="light" class="bg-paper p-6 lg:p-10">
+          <EnquiryForm client:visible form={forms.sample} />
+        </div>
+      </div>
+    </div>
+  </Section>
+</Base>

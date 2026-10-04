@@ -1,0 +1,147 @@
+---
+import ProductPage from '../../../layouts/ProductPage.astro';
+import Section from '../../../components/Section.astro';
+import SpecTag from '../../../components/SpecTag.astro';
+import SpecTable from '../../../components/SpecTable.astro';
+import { talcGrades, talcParameters, talcNote, quicklime, quicklimeForms } from '../../../data/minerals';
+
+type Page =
+  | { kind: 'talc'; index: number }
+  | { kind: 'quicklime'; index: number };
+
+export function getStaticPaths() {
+  return [
+    ...talcGrades.map((g, index) => ({ params: { product: 'talc', grade: g.slug }, props: { page: { kind: 'talc', index } } })),
+    ...quicklimeForms.map((f, index) => ({ params: { product: 'quicklime', grade: f.slug }, props: { page: { kind: 'quicklime', index } } })),
+  ];
+}
+
+const { page } = Astro.props as { page: Page };
+const crumbs = [
+  { label: 'Products', href: '/products' },
+  { label: 'Minerals', href: '/minerals' },
+];
+const cta = { label: 'Request a sample', href: '/minerals#sample' };
+
+const grade = page.kind === 'talc' ? talcGrades[page.index] : null;
+const form = page.kind === 'quicklime' ? quicklimeForms[page.index] : null;
+---
+
+{
+  grade && (
+    <ProductPage
+      vertical="minerals"
+      title={`${grade.name} · Procuro Minerals`}
+      description={`${grade.name} (${grade.code}): ${grade.use} ${grade.note} Certificate of analysis with every lot.`}
+      name={grade.name}
+      line={grade.use}
+      crumbs={crumbs}
+      image="Talc powder, close up"
+      cta={cta}
+    >
+      <SpecTag
+        slot="spec"
+        vertical="minerals"
+        name="Procuro Minerals"
+        code={grade.code}
+        rows={[
+          { label: 'Material', value: grade.name },
+          ...grade.keyValues,
+          { label: 'Certificate of analysis', value: 'With every lot' },
+        ]}
+        caption={grade.note}
+      />
+
+      <Section surface="concrete">
+        <div class="container-site grid-site gap-y-10">
+          <div class="col-span-12 lg:col-span-4">
+            <h2 class="t-h2">Full parameters<span class="text-accent">.</span></h2>
+            <p class="measure mt-5 text-ink-muted">{talcNote}</p>
+          </div>
+          <div data-theme="light" class="col-span-12 bg-paper p-6 lg:col-span-8 lg:p-8">
+            <SpecTable
+              columns={['Parameter', grade.grade]}
+              rows={talcParameters.map((row) => [row[0], row[page.index + 1]])}
+            />
+          </div>
+        </div>
+      </Section>
+
+      <Section>
+        <div class="container-site">
+          <h2 class="t-h2 mb-10">Other talc grades<span class="text-accent">.</span></h2>
+          <div class="grid gap-6 md:grid-cols-2">
+            {talcGrades
+              .filter((g) => g !== grade)
+              .map((g) => (
+                <SpecTag
+                  vertical="minerals"
+                  name={g.name}
+                  code={g.code}
+                  href={`/minerals/talc/${g.slug}`}
+                  rows={[{ label: 'Use', value: g.use }, ...g.keyValues]}
+                />
+              ))}
+          </div>
+        </div>
+      </Section>
+    </ProductPage>
+  )
+}
+
+{
+  form && (
+    <ProductPage
+      vertical="minerals"
+      title={`${form.name} · Procuro Minerals`}
+      description={`${form.name} from Procuro Minerals. ${quicklime.body} ${quicklime.note}`}
+      name={form.name}
+      line={quicklime.body}
+      crumbs={crumbs}
+      image="Quicklime, close up"
+      cta={cta}
+    >
+      <SpecTag
+        slot="spec"
+        vertical="minerals"
+        name="Procuro Minerals"
+        code="Quicklime"
+        rows={[
+          { label: 'Material', value: form.name },
+          ...quicklime.chemistry.map(([label, value]) => ({ label, value })),
+          { label: form.sizeLabel, value: form.sizes.join(', ') },
+        ]}
+        caption={quicklime.note}
+      />
+
+      <Section surface="concrete">
+        <div class="container-site grid-site gap-y-10">
+          <div class="col-span-12 lg:col-span-4">
+            <h2 class="t-h2">Sizes<span class="text-accent">.</span></h2>
+          </div>
+          <ul class="col-span-12 grid gap-x-6 sm:grid-cols-2 lg:col-span-8">
+            {form.sizes.map((s) => (
+              <li class="t-spec border-t border-line-strong py-4">{s}</li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+
+      <Section>
+        <div class="container-site">
+          <h2 class="t-h2 mb-10">Also from Procuro Minerals<span class="text-accent">.</span></h2>
+          <ul class="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              ...quicklimeForms.filter((f) => f !== form).map((f) => ({ label: f.name, href: `/minerals/quicklime/${f.slug}` })),
+              ...talcGrades.map((g) => ({ label: g.name, href: `/minerals/talc/${g.slug}` })),
+            ].map((l) => (
+              <li class="border-b border-line">
+                <a href={l.href} class="block py-4 text-ink no-underline hover:underline underline-offset-4">{l.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Section>
+    </ProductPage>
+  )
+}

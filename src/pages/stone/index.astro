@@ -1,0 +1,175 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import ProofBar from '../../components/ProofBar.astro';
+import Card from '../../components/Card.astro';
+import Gallery from '../../components/Gallery';
+import Steps from '../../components/Steps.astro';
+import Faq from '../../components/Faq.astro';
+import EnquiryForm from '../../components/EnquiryForm';
+import {
+  stoneFamilies,
+  stoneForms,
+  stoneFinishes,
+  engineeredSurfaces,
+  stoneProof,
+  stoneAudiences,
+  stoneSteps,
+  stoneFaqs,
+} from '../../data/stone';
+import { forms } from '../../data/forms';
+import { whatsappMessages } from '../../data/site';
+
+const galleryImages = [
+  { alt: 'Polished slabs in rows' },
+  { alt: 'Honed finish, close detail' },
+  { alt: 'Flamed and bush-hammered finishes side by side' },
+  { alt: 'Sandstone pavers laid outdoors' },
+  { alt: 'Marble flooring in a finished lobby' },
+  { alt: 'CNC-carved stone panel' },
+];
+---
+
+<Base
+  title="Procuro Stone · Granite, marble, sandstone and more"
+  description="70+ natural stones in 10 finishes, plus engineered surfaces. Free samples and installation anywhere in India. Export enquiries welcome."
+  vertical="stone"
+>
+  <Hero
+    variant="split"
+    headline="Chosen slab by slab."
+    line="Natural and engineered stone, seen before you commit."
+    image="A slab under raking light, full colour"
+  >
+    <Button href="#samples" variant="accent">Order samples</Button>
+    <WhatsAppButton mode="inline" message={whatsappMessages.stone} />
+  </Hero>
+
+  <Section surface="dark" class="!py-18 lg:!py-24">
+    <div class="container-site">
+      <h2 class="sr-only">Procuro Stone in numbers</h2>
+      <ProofBar items={stoneProof} />
+    </div>
+  </Section>
+
+  <Section id="natural-stone">
+    <div class="container-site">
+      <Headline text="Six families of natural stone." class="mb-12 lg:mb-16" />
+      <div class="grid grid-cols-1 gap-x-6 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          stoneFamilies.map((f) => (
+            <Card
+              title={f.name}
+              vertical="stone"
+              href={`/stone/${f.slug}`}
+              image={`${f.name}, slab detail`}
+              ratio="3 / 2"
+              linkLabel={`See all ${f.stones.length} ${f.plural}`}
+              text={`Including ${f.examples.slice(0, -1).join(', ')} and ${f.examples.at(-1)}.`}
+            />
+          ))
+        }
+      </div>
+
+      <div class="grid-site mt-16 gap-y-8 border-t-2 border-ink pt-8 lg:mt-24">
+        <div class="col-span-12 sm:col-span-6 lg:col-span-3">
+          <h3 class="t-small mb-3 font-semibold">Forms</h3>
+          <ul class="flex flex-col gap-1">{stoneForms.map((f) => <li>{f}</li>)}</ul>
+        </div>
+        <div class="col-span-12 sm:col-span-6 lg:col-span-5">
+          <h3 class="t-small mb-3 font-semibold">Finishes</h3>
+          <ul class="grid grid-cols-2 gap-x-6 gap-y-1">{stoneFinishes.map((f) => <li>{f}</li>)}</ul>
+        </div>
+        <div class="col-span-12 lg:col-span-4">
+          <h3 class="t-small mb-3 font-semibold">Service</h3>
+          <ul class="flex flex-col gap-1">
+            <li>Finishing on request</li>
+            <li>Installation anywhere in India</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="dark">
+    <div class="container-site">
+      <h2 class="sr-only">Gallery</h2>
+      <Gallery client:visible images={galleryImages} />
+    </div>
+  </Section>
+
+  <Section id="engineered">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col gap-5 lg:col-span-5">
+        <Headline text="When the brief calls for uniformity." />
+        <p class="measure text-ink-muted">
+          Engineered quartz, composite marble and composite terrazzo, for surfaces that need the same look from the first
+          slab to the last.
+        </p>
+      </div>
+      <div class="col-span-12 flex flex-col gap-6 lg:col-span-6 lg:col-start-7">
+        <dl class="flex flex-col">
+          {
+            engineeredSurfaces.map((e) => (
+              <div class="flex flex-col gap-1 border-t border-line py-5 sm:flex-row sm:gap-8">
+                <dt class="t-h3 sm:w-1/2 sm:shrink-0">{e.name}</dt>
+                <dd class="t-small text-ink-muted sm:pt-1">
+                  {e.series.length > 0 ? `${e.series.join(', ')} series` : 'One series'}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+        <p class="t-small text-ink-muted">Each design is shown with its Procuro code (for example PR-EQ-014), not a name.</p>
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="For people who choose stone with care." class="col-span-12 lg:col-span-5" />
+      <dl class="col-span-12 grid gap-x-6 gap-y-8 sm:grid-cols-2 lg:col-span-7">
+        {
+          stoneAudiences.map((a) => (
+            <div class="border-t border-line-strong pt-5">
+              <dt class="t-h3">{a.title}</dt>
+              <dd class="t-small mt-2 text-ink-muted">{a.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site">
+      <Headline text="See it before you commit." class="mb-12 lg:mb-16" />
+      <Steps steps={stoneSteps} />
+    </div>
+  </Section>
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <Headline text="Questions." class="col-span-12 lg:col-span-4" />
+      <div class="col-span-12 lg:col-span-8">
+        <Faq items={stoneFaqs} />
+      </div>
+    </div>
+  </Section>
+
+  <Section id="samples">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-4">
+        <Headline text="Order samples." />
+        <p class="measure mt-5 text-ink-muted">Samples are free; you pay only for delivery. We'll be in touch within one working day.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <EnquiryForm client:visible form={forms.samples} />
+      </div>
+    </div>
+  </Section>
+</Base>

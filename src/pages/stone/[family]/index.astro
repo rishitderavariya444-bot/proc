@@ -1,0 +1,74 @@
+---
+import Base from '../../../layouts/Base.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import Section from '../../../components/Section.astro';
+import Headline from '../../../components/Headline.astro';
+import Button from '../../../components/Button.astro';
+import WhatsAppButton from '../../../components/WhatsAppButton.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import { stoneFamilies, stones, stoneForms, stoneFinishes, stoneTitle, type StoneFamily } from '../../../data/stone';
+import { whatsappMessages } from '../../../data/site';
+
+export function getStaticPaths() {
+  return stoneFamilies.map((family) => ({ params: { family: family.slug }, props: { family } }));
+}
+
+const { family } = Astro.props as { family: StoneFamily };
+const familyStones = stones.filter((s) => s.family === family);
+---
+
+<Base
+  title={`${family.name} · Procuro Stone`}
+  description={`${familyStones.length} natural ${family.plural} from Procuro Stone, in blocks, slabs, tiles and pavers. Free samples and installation anywhere in India.`}
+  vertical="stone"
+>
+  <Breadcrumbs items={[{ label: 'Products', href: '/products' }, { label: 'Stone', href: '/stone' }]} current={family.name} />
+
+  <section class="bg-paper pt-8 pb-14 lg:pt-12 lg:pb-20">
+    <div class="container-site flex flex-col items-start gap-6">
+      <Headline text={`${family.name}.`} as="h1" size="h1" />
+      <p class="measure text-ink-muted">
+        {familyStones.length} natural {family.plural}, in blocks, slabs, tiles and pavers. Samples are free; you pay only
+        for delivery.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/stone#samples" variant="accent">Order samples</Button>
+        <WhatsAppButton mode="inline" message={whatsappMessages.stone} />
+      </div>
+    </div>
+  </section>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <h2 class="sr-only">All {family.plural}</h2>
+      <ul class="grid gap-x-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          familyStones.map((s) => (
+            <li class="border-b border-line-strong">
+              <a href={`/stone/${family.slug}/${s.slug}`} class="flex items-baseline justify-between gap-4 py-4 text-ink no-underline hover:underline underline-offset-4">
+                <span class="t-h3">{stoneTitle(s)}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-8">
+      <div class="col-span-12 sm:col-span-6 lg:col-span-4">
+        <h2 class="t-h3 mb-4">Forms<span class="text-accent">.</span></h2>
+        <ul class="flex flex-col gap-1">{stoneForms.map((f) => <li>{f}</li>)}</ul>
+      </div>
+      <div class="col-span-12 sm:col-span-6 lg:col-span-8">
+        <h2 class="t-h3 mb-4">Finishes<span class="text-accent">.</span></h2>
+        <ul class="grid grid-cols-2 gap-x-6 gap-y-1 lg:grid-cols-3">{stoneFinishes.map((f) => <li>{f}</li>)}</ul>
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand headline="See it before you commit." line="Samples are free; you pay only for delivery." surface="dark">
+    <Button href="/stone#samples">Order samples</Button>
+  </CtaBand>
+</Base>

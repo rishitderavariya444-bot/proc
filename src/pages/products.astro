@@ -1,0 +1,71 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Hero from '../components/Hero.astro';
+import Headline from '../components/Headline.astro';
+import Button from '../components/Button.astro';
+import ImagePlaceholder from '../components/ImagePlaceholder.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const panels = [
+  {
+    vertical: 'build',
+    name: 'Procuro Build',
+    headline: 'On spec. On site. On time.',
+    line: 'Construction materials for live sites, matched to the drawing.',
+    lines: ['Masonry and blockwork', 'Floors and surfaces', 'Specified to the drawing'],
+    image: 'Blockwork going up on a live site',
+    href: '/build',
+    cta: 'Explore Build',
+  },
+  {
+    vertical: 'minerals',
+    name: 'Procuro Minerals',
+    headline: 'Graded to the mesh.',
+    line: 'Talc and quicklime supplied against your specification.',
+    lines: ['Talc series: P92, I90 and E85', 'Quicklime'],
+    image: 'Talc powder, close up',
+    href: '/minerals',
+    cta: 'Explore Minerals',
+  },
+  {
+    vertical: 'stone',
+    name: 'Procuro Stone',
+    headline: 'Chosen slab by slab.',
+    line: 'Natural and engineered stone, seen before you commit.',
+    lines: ['Natural stone in six families', 'Engineered surfaces'],
+    image: 'A stone slab under raking light',
+    href: '/stone',
+    cta: 'Explore Stone',
+  },
+] as const;
+---
+
+<Base title="Products · Procuro India" description="Construction materials, talc and quicklime, and natural and engineered stone from Procuro India.">
+  <Hero variant="text" headline="What we supply." line="Three lines, one standard of checking." />
+
+  {
+    panels.map((p, i) => (
+      <Section surface={i % 2 ? 'paper' : 'concrete'} data-vertical={p.vertical}>
+        <div class="container-site grid-site items-center gap-y-10">
+          <div class:list={['col-span-12 lg:col-span-6', i % 2 && 'lg:order-2 lg:col-start-7']}>
+            <ImagePlaceholder label={p.image} ratio="4 / 3" class={i % 2 ? undefined : '!bg-paper'} />
+          </div>
+          <div class:list={['col-span-12 flex flex-col items-start gap-6 lg:col-span-5', i % 2 ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-8']}>
+            <p class="t-h3">{p.name}<span class="text-accent">.</span></p>
+            <Headline text={p.headline} size="h1" />
+            <p class="measure text-ink-muted">{p.line}</p>
+            <ul class="flex flex-col gap-1">
+              {p.lines.map((l) => <li class="font-semibold">{l}</li>)}
+            </ul>
+            <Button href={p.href} variant="accent">{p.cta}</Button>
+          </div>
+        </div>
+      </Section>
+    ))
+  }
+
+  <CtaBand headline="Tell us what you need." line="Reply within one working day." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+  </CtaBand>
+</Base>
