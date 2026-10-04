@@ -19,7 +19,8 @@ Facts and access still needed from the client. Until each arrives, show a visibl
 | [ ] Build: a specification and a one-line use for each of the 15 materials (AAC blocks, mortar, tiles and so on). Pages show `[TO CONFIRM]` for now | `/build/[material]` | Stage 4 |
 | [ ] Quicklime CaO value (and the two CaO grades the FAQ mentions) | Minerals, quicklime pages | Stage 4 |
 | [ ] Stone origins, only where confirmed per stone | `/stone/[family]/[stone]` | Stage 4 |
-| [ ] Real photos (yard, stock, slabs, deliveries, office, team) to replace stock | Everywhere | Before launch |
+| [ ] Real photos (yard, stock, slabs, deliveries, office, team) to replace stock. Highest priority: one photo per stone (73) and per Build material (15), then team and offices; these have no stock stand-in | Everywhere | Before launch |
+| [ ] Unsplash access for Stage 8.5: allow `unsplash.com` and `images.unsplash.com` in the environment's network settings, or send photo links | Stage 8.5 | Stage 8.5 |
 | [ ] LinkedIn company page URL (old footer listed LinkedIn; left out until we have the link) | Footer | Stage 8 |
 | [ ] Logo as vector (SVG/AI/PDF) if the original designer has it | Header, footer | Stage 0 (otherwise rebuild from PNG) |
 

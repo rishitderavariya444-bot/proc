@@ -80,6 +80,29 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 
 **Done when:** a test enquiry arrives by email and WhatsApp opens with the right message.
 
+## Stage 8.5 — Photos (stock, general shots only)
+Decision (2026-10-04): free Unsplash photos for general scenes only. Individual products (73 stones, 15 Build materials, talc grades, quicklime), the team and the offices keep labelled placeholders until real photos arrive, so stock never stands in for Procuro's own stock or people.
+
+- [ ] Get access to Unsplash: either `unsplash.com` and `images.unsplash.com` allowed in the environment's network settings, or the user sends photo links
+- [ ] Choose and download about 23 photos into `src/assets/photos/`, served through Astro `<Picture>` (AVIF/WebP, lazy below the fold, alt text on every image)
+- [ ] Log every photo (page, URL, photographer) in `src/data/photo-credits.md`
+- [ ] Replace these placeholders:
+  - Home hero: wide shot of a stone yard, slabs in rows
+  - A stone slab under raking light (home, products, Stone hero)
+  - Blockwork or AAC blocks on a live site (home, products, Build hero, real estate industry)
+  - Mineral powder close up (home, products, Minerals hero, paints industry)
+  - Yard stock: blocks, slabs and bagged material (home, "Buy from our supply")
+  - Inspection at a plant (home, services, Source hero)
+  - Inspector checking a slab (quality control)
+  - Loaded truck leaving a yard (services, logistics)
+  - Crated stone ready for export (logistics, international buyers)
+  - Stone samples on a design table (architects and designers)
+  - Production line at a plant (suppliers)
+  - Six stone family textures: marble, granite, sandstone, limestone, slate, basalt (Stone page cards)
+  - Stone gallery (6): polished slabs, honed detail, flamed and bush-hammered finishes, sandstone pavers outdoors, marble floor in a lobby, CNC-carved panel
+
+**Done when:** every general placeholder shows a credited photo, product, team and office slots still say "Photo to come", and the pages still pass the phone and laptop checks.
+
 ## Stage 9 — SEO and polish
 - [ ] Titles and descriptions on every page; Organization JSON-LD; sitemap; 404 page
 - [ ] Image sizes optimised; accessibility pass (contrast, focus, alt text)
