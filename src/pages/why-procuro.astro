@@ -1,0 +1,117 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Hero from '../components/Hero.astro';
+import Headline from '../components/Headline.astro';
+import Button from '../components/Button.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import SpecTag from '../components/SpecTag.astro';
+import CaseStudyCard from '../components/CaseStudyCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+// The map is told in words only. Per CLAUDE.md, never explain how it is
+// built or what data feeds it.
+const mapItems = [
+  { title: 'Capability', text: 'Who can make what, to which specification.' },
+  { title: 'Pricing', text: 'What the right price looks like, plant by plant.' },
+  { title: 'Fulfilment', text: 'Who delivers what they promise, and when.' },
+];
+---
+
+<Base
+  title="Why Procuro · Procuro India"
+  description="India has no shortage of supply. What buyers lack is a clear view of it. Procuro gives you that view, and checks what it supplies."
+>
+  <Hero variant="text" headline="India has no shortage of supply." line="What buyers lack is a clear view of it. Procuro gives you that view.">
+    <Button href="/contact">Get a quote</Button>
+  </Hero>
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-6">
+      <p class="t-h3 col-span-12 font-normal lg:col-span-8" style="font-stretch: 100%">
+        Across the country, quarries, mills and producers make the materials India builds and manufactures with. What
+        buyers lack is a clear view of it: who can supply what, at what quality, at what price, and how reliably.
+      </p>
+    </div>
+  </Section>
+
+  <!-- The map -->
+  <Section surface="dark">
+    <div class="container-site">
+      <div class="grid-site mb-12 gap-y-6 lg:mb-16">
+        <div class="col-span-12 lg:col-span-6">
+          <Headline text="A clearer view of supply." />
+          <p class="mt-5 text-ink-muted">Who can supply what, where, and how well.</p>
+        </div>
+        <p class="measure col-span-12 text-ink-muted lg:col-span-5 lg:col-start-8 lg:pt-3">
+          Procurement runs on phone calls, old relationships and guesswork. The map replaces guesswork with a view of
+          capability, pricing and fulfilment, plant by plant.
+        </p>
+      </div>
+      <dl class="grid gap-x-6 gap-y-10 md:grid-cols-3">
+        {
+          mapItems.map((m) => (
+            <div class="border-t-2 border-ink pt-5">
+              <dt class="t-h2">{m.title}<span class="text-accent">.</span></dt>
+              <dd class="measure mt-3 text-ink-muted">{m.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <!-- How we verify -->
+  <Section>
+    <div class="container-site grid-site items-center gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-6">
+        <Headline text="Verified means checked." />
+        <p class="measure text-ink-muted">
+          Every claim tested before it reaches you. Every material is checked in-house or by an independent lab,
+          depending on what it is. The spec tag shows what was checked. Verified appears only when the batch has been.
+        </p>
+        <Button href="/services/quality-control" variant="secondary">See how we verify</Button>
+      </div>
+      <div class="col-span-12 lg:col-span-5 lg:col-start-8">
+        <SpecTag
+          vertical="minerals"
+          name="Procuro Minerals"
+          code="PR-MN-T92"
+          rows={[
+            { label: 'Material', value: 'Procuro Talc P92' },
+            { label: 'Whiteness', value: '94.00' },
+            { label: 'Mesh', value: '400' },
+            { label: 'Certificate of analysis', value: 'Attached' },
+            { label: 'Status', value: 'Verified' },
+          ]}
+          caption="Example tag"
+        />
+      </div>
+    </div>
+  </Section>
+
+  <!-- Case studies -->
+  <Section surface="concrete" id="case-studies">
+    <div class="container-site">
+      <Headline text="Work we can show." class="mb-12 lg:mb-16" />
+      <div class="grid gap-6 lg:grid-cols-3">
+        {
+          [1, 2, 3].map((n) => (
+            <CaseStudyCard
+              context={`[TO CONFIRM: case study ${n}, client type and city]`}
+              title="[TO CONFIRM: title]"
+              problem="[TO CONFIRM: the problem]"
+              action="[TO CONFIRM: what we did]"
+              result="[TO CONFIRM: the result]"
+            />
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand headline="Right partner." line="Start with one order or one brief." surface="dark">
+    <Button href="/contact">Get a quote</Button>
+    <WhatsAppButton mode="inline" />
+  </CtaBand>
+</Base>

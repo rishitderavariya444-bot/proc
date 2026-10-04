@@ -66,10 +66,10 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 ## Stage 6 — Industries ✅
 - [x] `/industries` index + 4 industry pages
 
-## Stage 7 — Why Procuro, Company, Suppliers
-- [ ] `/why-procuro` (incl. case studies section)
-- [ ] `/company`, `/company/certifications`
-- [ ] `/suppliers`
+## Stage 7 — Why Procuro, Company, Suppliers ✅
+- [x] `/why-procuro` (incl. case studies section)
+- [x] `/company`, `/company/certifications`
+- [x] `/suppliers`
 
 ## Stage 8 — Contact and forms
 - [ ] `/contact` with routes, form and direct details
@@ -105,3 +105,4 @@ Read `CLAUDE.md` first. Everything else lives in `docs/` and `assets/`:
 | 2026-10-04 | 4 | Data in `src/data/build.ts`, `minerals.ts`, `stone.ts`. `/products`, `/build`, `/minerals`, `/stone`, plus generated pages: 15 Build materials, 3 talc grades and 2 quicklime forms (powder, lump), 6 stone families and 73 stones (121 pages in all). Shared `ProductPage` layout with breadcrumbs (BreadcrumbList JSON-LD) and a per-product WhatsApp message. Talc tier labels omitted pending the PREMIUM decision; stone origins hidden until confirmed. Link and anchor check: 0 broken. Checked at 360px and 1440px. |
 | 2026-10-04 | 5 | `/services`, `/source` (what we do, two ways in, six-step process, engagement models, proof, FAQ, brief form), `/services/quality-control` (vetting, inspections, what you receive, spec tag explainer, checks by vertical) and `/services/logistics`. Engagement-model pricing, export terms and a sample report are `[TO CONFIRM]`. Hero headline minimum lowered from 48px to 40px, and split-hero headlines capped at 88px, so long words like "procurement" fit at 360px and beside the photo. Link check: 0 broken. |
 | 2026-10-04 | 6 | `/industries` and four industry pages generated from `src/data/industries.ts`: hero, what we supply (reusing Build, Minerals, Stone and Source copy), who it's for, a `[TO CONFIRM]` case study, other industries, CTA. Each page takes the accent of its main vertical. Link check: 0 broken. Checked at 360px and 1440px. |
+| 2026-10-04 | 7 | `/why-procuro` (the map in words, how we verify, three `[TO CONFIRM]` case studies), `/company` (about, facts, team placeholders, how we work, both offices with Google Maps links), `/company/certifications` (GST, IEC, CIN, Udyam and other certifications as `[TO CONFIRM]`; documents per vertical) and `/suppliers` (benefits, criteria, steps, application form). Dropped the old copy's "sharpened by every order we handle and every check we run" clause about the map, because CLAUDE.md forbids saying what feeds it. Link check: 0 broken. |

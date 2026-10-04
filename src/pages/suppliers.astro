@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Section from '../components/Section.astro';
+import Hero from '../components/Hero.astro';
+import Headline from '../components/Headline.astro';
+import Button from '../components/Button.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Steps from '../components/Steps.astro';
+import EnquiryForm from '../components/EnquiryForm';
+import { forms } from '../data/forms';
+import { whatsappMessages } from '../data/site';
+
+const benefits = [
+  { title: 'Clear orders.', text: 'Requirements arrive with the specification, quantity and timeline already set.' },
+  { title: 'Steady demand.', text: 'Developers, contractors and manufacturers who buy month after month.' },
+  { title: 'New markets.', text: 'Access to buyers abroad as our export work begins.' },
+  { title: 'One point of contact.', text: 'We coordinate with the buyer so you can focus on production.' },
+];
+
+const criteria = ['Consistent quality', 'Clear documents', 'Reliable dispatch'];
+
+const steps = [
+  { text: 'Tell us what you make, where, and in what volumes.' },
+  { text: 'We review your plant and your products.' },
+  { text: 'A trial order shows the fit.' },
+  { text: 'Regular orders follow.' },
+];
+---
+
+<Base
+  title="Supply with Procuro · For manufacturers and quarries"
+  description="Manufacturers, quarries and producers who meet our checks reach buyers in India and abroad. Tell us what you make."
+  whatsappMessage={whatsappMessages.suppliers}
+>
+  <Hero
+    variant="split"
+    headline="Make what India builds with? Work with us."
+    line="Steady orders from buyers who know what they need."
+    image="A production line at a manufacturing plant"
+  >
+    <Button href="#apply">Apply to supply</Button>
+    <WhatsAppButton mode="inline" message={whatsappMessages.suppliers} />
+  </Hero>
+
+  <Section surface="concrete">
+    <div class="container-site">
+      <Headline text="Buyers who know what they need." class="mb-12 lg:mb-16" />
+      <dl class="grid gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          benefits.map((b) => (
+            <div class="border-t-2 border-ink pt-5">
+              <dt class="t-h3">{b.title}</dt>
+              <dd class="t-small mt-3 text-ink-muted">{b.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col gap-5 lg:col-span-5">
+        <Headline text="What we look for." />
+        <p class="measure text-ink-muted">
+          Consistent quality, honest capacity, documented specifications, and a willingness to be checked. We check
+          in-house or through independent labs, depending on the material.
+        </p>
+      </div>
+      <ul class="col-span-12 flex flex-col lg:col-span-6 lg:col-start-7">
+        {criteria.map((c) => <li class="t-h2 border-t border-line py-5 last:border-b">{c}</li>)}
+      </ul>
+    </div>
+  </Section>
+
+  <Section surface="dark">
+    <div class="container-site">
+      <Headline text="How it works." class="mb-12 lg:mb-16" />
+      <Steps steps={steps} />
+    </div>
+  </Section>
+
+  <Section surface="concrete" id="apply">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 lg:col-span-4">
+        <Headline text="Supply with Procuro." />
+        <p class="measure mt-5 text-ink-muted">Tell us what you make. We'll review your details and get in touch.</p>
+      </div>
+      <div class="col-span-12 lg:col-span-8">
+        <div data-theme="light" class="bg-paper p-6 lg:p-10">
+          <EnquiryForm client:visible form={forms.supplier} />
+        </div>
+      </div>
+    </div>
+  </Section>
+</Base>

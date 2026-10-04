@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import Section from '../../components/Section.astro';
+import Hero from '../../components/Hero.astro';
+import Headline from '../../components/Headline.astro';
+import Button from '../../components/Button.astro';
+import ProofBar from '../../components/ProofBar.astro';
+import ImagePlaceholder from '../../components/ImagePlaceholder.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { site } from '../../data/site';
+
+// [TO CONFIRM] in docs/OPEN_ITEMS.md: figures await client sign-off.
+const facts = [
+  { figure: '2023', label: 'Supplying since' },
+  { figure: '20+', label: 'Clients' },
+  { figure: '30+', label: 'Real estate projects' },
+  { figure: '2', label: 'Offices, Mumbai and Jaipur' },
+];
+
+const howWeWork = [
+  { title: 'Verified means checked.', text: 'In-house or by independent labs, depending on the material.' },
+  { title: 'The same rules, every time.', text: 'Commitments that hold on every order, not just the first.' },
+  { title: 'One point of contact.', text: 'From the first quote to the last delivery.' },
+];
+
+const mapsHref = (address: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(address)}`;
+---
+
+<Base
+  title="About Procuro India"
+  description="Procuro India supplies construction materials, minerals and stone and runs managed procurement. A brand of Deravariya India Private Limited."
+>
+  <Hero variant="text" headline="A clearer view of Indian supply." line="Procurement and supply from Mumbai and Jaipur since 2023." />
+
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-6">
+      <div class="col-span-12 flex flex-col gap-6 lg:col-span-8">
+        <p class="t-h3 font-normal" style="font-stretch: 100%">
+          Procuro India is a procurement and supply company for India's builders and manufacturers, and for buyers
+          sourcing from India. We started in 2023, supplying granite, and have grown into four arms.
+        </p>
+        <p class="measure text-ink-muted">
+          Procuro Source runs procurement on a client's behalf. Procuro Build, Procuro Minerals and Procuro Stone supply
+          our own range.
+        </p>
+        <p class="measure text-ink-muted">
+          Everything we do runs on one idea: trust starts with visibility. We're building a plant-level map of Indian
+          manufacturing, and we use it to match each requirement with the right supplier.
+        </p>
+      </div>
+    </div>
+  </Section>
+
+  <Section surface="dark" class="!py-18 lg:!py-24">
+    <div class="container-site">
+      <h2 class="sr-only">Key facts</h2>
+      <ProofBar items={facts} />
+    </div>
+  </Section>
+
+  <!-- Team -->
+  <Section id="team">
+    <div class="container-site">
+      <Headline text="The people behind your order." class="mb-12 lg:mb-16" />
+      <ul class="grid grid-cols-1 gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          [1, 2, 3, 4].map((n) => (
+            <li class="flex flex-col gap-4">
+              <ImagePlaceholder label={`Team member ${n}, portrait`} ratio="4 / 5" />
+              <div>
+                <p class="t-h3">[TO CONFIRM: name]</p>
+                <p class="t-small text-ink-muted">[TO CONFIRM: role]</p>
+              </div>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <!-- How we work -->
+  <Section surface="concrete">
+    <div class="container-site grid-site gap-y-10">
+      <div class="col-span-12 flex flex-col items-start gap-6 lg:col-span-5">
+        <Headline text="How we work." />
+        <Button href="/services/quality-control" variant="secondary">See how we verify</Button>
+      </div>
+      <dl class="col-span-12 flex flex-col lg:col-span-7">
+        {
+          howWeWork.map((h) => (
+            <div class="flex flex-col gap-1 border-t border-line-strong py-6 sm:flex-row sm:gap-8">
+              <dt class="t-h3 sm:w-1/2 sm:shrink-0">{h.title}</dt>
+              <dd class="text-ink-muted">{h.text}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Section>
+
+  <!-- Offices -->
+  <Section id="offices">
+    <div class="container-site">
+      <Headline text="Two offices, one team." class="mb-12 lg:mb-16" />
+      <div class="grid gap-6 md:grid-cols-2">
+        {
+          site.offices.map((o) => (
+            <div class="flex flex-col gap-5">
+              <ImagePlaceholder label={`The ${o.city} office`} ratio="16 / 9" />
+              <h3 class="t-h2">{o.city}<span class="text-accent">.</span></h3>
+              <address class="measure not-italic text-ink-muted">{o.full}</address>
+              <a
+                href={mapsHref(`${o.full}, India`)}
+                target="_blank"
+                rel="noopener"
+                class="t-small font-semibold text-ink underline underline-offset-4"
+              >
+                Open in Google Maps<span class="sr-only"> (opens in a new tab)</span>
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <CtaBand headline="Right material. Right price. Right partner." line={site.legalLine} surface="dark">
+    <Button href="/contact">Request a quote</Button>
+  </CtaBand>
+</Base>
